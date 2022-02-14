@@ -12,7 +12,7 @@ class App extends React.Component {
         return (
             <>
                 <header className='top-bar'>
-                    <h1 className='title'>{this.state.title}</h1>
+                    <h1 className='title text-3xl font-bold underline'>{this.state.title}</h1>
                     <div className='login'>
 
                     </div>
