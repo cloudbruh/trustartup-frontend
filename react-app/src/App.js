@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './Card'
 import Filters from './Filters'
+import Register from './Register'
 
 class App extends React.Component {
 
@@ -18,10 +19,7 @@ class App extends React.Component {
                     </div>
                 </header>
                 <div className='content'>
-                    <ul>
-                        <li><Card/></li>
-                    </ul>
-                    <Filters/>
+                    <Register/>
                 </div>
                 <footer className='bot-bar'>
 

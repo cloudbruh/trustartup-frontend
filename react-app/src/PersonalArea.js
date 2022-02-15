@@ -3,6 +3,7 @@ import React from 'react';
 class PersonalArea extends React.Component {
 
     state = {
+        title: 'Личный кабинет',
         name: 'Зубенко Михаил Петрович',
         tel: '8(800)5553535',
         info: 'Я основатель компании Batsales',
