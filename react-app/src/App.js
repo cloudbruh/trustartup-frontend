@@ -12,14 +12,17 @@ class App extends React.Component {
     render() {
         return (
             <>
-                <header className='top-bar'>
-                    <h1 className='title text-3xl font-bold underline'>{this.state.title}</h1>
+                <header className='top-bar bg-blue h-16'>
+                    <h1 className='title text-center font-bold text-white text-2xl'><span className='inline-block my-4'>{this.state.title}</span></h1>
                     <div className='login'>
 
                     </div>
                 </header>
-                <div className='content'>
-                    <Register/>
+                <div className='content mt-10 mx-10 flex flex-row'>
+                    <ul>
+                        <li><Card/></li>
+                    </ul>
+                    <Filters/>
                 </div>
                 <footer className='bot-bar'>
 
