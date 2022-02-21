@@ -13,7 +13,7 @@ class Card extends React.Component {
     
     render() {
         return (
-            <div className='card bg-card border-solid mx-auto relative w-2/5 px-2'>
+            <div className='card bg-card border-solid mx-auto relative w-2/5 px-2 mb-20'>
                 <div className='mb-3'>
                     <h1 className='card-title font-bold text-center mb-2'>{this.state.title}</h1>
                     <p className='card-desc text-center mb-2'>{this.state.text}</p>

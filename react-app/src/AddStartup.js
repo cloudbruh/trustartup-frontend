@@ -2,7 +2,7 @@ import React from 'react';
 import Card from './Card'
 import Filters from './Filters'
 
-class AddCompany extends React.Component {
+class AddStartup extends React.Component {
 
     state = {
         title: 'Добавить компанию'
@@ -44,4 +44,4 @@ class AddCompany extends React.Component {
     }
 }
 
-export default AddCompany;
+export default AddStartup;

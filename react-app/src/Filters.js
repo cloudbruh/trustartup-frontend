@@ -8,7 +8,7 @@ class Filters extends React.Component {
     
     render() {
         return (
-            <div className='filters-container bg-card text-center'>
+            <div className='filters-container bg-card text-center h-80'>
                 <h1 className='font-bold'>Фильтры</h1>
                 <h2>Годовой оборот</h2>
                 <div className='turnover-slider-container mb-3'>
@@ -41,11 +41,11 @@ class Filters extends React.Component {
                             </div>
                             <div>
                                 <input type='radio' id='all' name='rate'/>
-                                <label htmlFor='all'>Любой</label>
+                                <label htmlFor='all'>Все</label>
                             </div>
                         </div>
                     </div>
-                    <div className='tag-container text-center mx-5'>
+                    <div className='tag-container text-center mx-5 mb-8'>
                         <h2>Профиль</h2>
                         <div className='text-left'>
                             <div>
@@ -54,7 +54,7 @@ class Filters extends React.Component {
                             </div>
                             <div>
                                 <input type="checkbox" id='edu-checkox'/>
-                                <label htmlFor='edu-checkbox'>Образование</label>
+                                <label htmlFor='edu-checkbox'>Edu</label>
                             </div>
                             <div>
                                 <input type="checkbox" id='food-checkox'/>
