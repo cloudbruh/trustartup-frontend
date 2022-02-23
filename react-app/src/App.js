@@ -4,6 +4,7 @@ import Filters from './Filters'
 import Register from './Register'
 import Startup from './Startup'
 import PersonalArea from './PersonalArea'
+import AddStartup from './AddStartup'
 
 class App extends React.Component {
 
@@ -19,7 +20,7 @@ class App extends React.Component {
 
                     </div>
                 </header>
-                    <PersonalArea/>
+                    <AddStartup/>
                 <footer className='bot-bar'>
 
                 </footer>
