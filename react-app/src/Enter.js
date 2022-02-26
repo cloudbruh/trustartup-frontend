@@ -8,17 +8,17 @@ class Enter extends React.Component {
     
     render() {
         return (
-            <>
-                <div className='enter-email'>
-                    <input type='text' id='enter-email'/>
-                    <label htmlFor='enter-email'>E-mail:</label>
+            <div className='mx-auto w-fit mt-10 p-5 flex flex-col justify-center'>
+                <div className='login-email mb-7'>
+                        <label htmlFor='login-email' className='font-bold mr-2 mb-2 block'>E-mail:</label>
+                        <input type='text' id='login-email' className='border border-solid rounded-sm'/>
                 </div>
-                <div className='enter-pass'>
-                    <input type='password' id='enter-pass'/>
-                    <label htmlFor='enter-pass'>Пароль:</label>
+                <div className='login-pass mb-7'>
+                        <label htmlFor='login-pass' className='font-bold mr-2 mb-2 block'>Пароль:</label>
+                        <input type='text' id='login-pass' className='border border-solid rounded-sm'/>
                 </div>
-                <button className='enter-button'>Вход</button>
-            </>
+                <button className='enter-button py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>Вход</button>
+            </div>
         )
     }
 }

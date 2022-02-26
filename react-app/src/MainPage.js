@@ -12,11 +12,10 @@ class MainPage extends React.Component {
     }
     render() {
         return (
-            <div className='content mt-10 mx-10 flex flex-row'>
+            <div className='content mt-10 px-4 mx-auto'>
                     <ul>
                         <li><Card/></li>
                     </ul>
-                    <Filters/>
             </div>
         )
     }

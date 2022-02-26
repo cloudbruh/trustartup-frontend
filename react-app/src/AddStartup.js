@@ -14,7 +14,7 @@ class AddStartup extends React.Component {
                 <div className='mx-auto w-fit mt-10 p-5 flex flex-col justify-center'>
                     <h1 className='font-bold text-xl mb-10'>Введите данные о стартапе:</h1>
                     <div className='name mb-7'>
-                        <label htmlFor='name' className='font-bold mr-2'>Название:</label>
+                        <label htmlFor='name' className='font-bold mr-2 mb-2 block'>Название:</label>
                         <input type='text' id='name' className='border border-solid rounded-sm'/>
                     </div>
                     <div className='short-desc mb-7'>
@@ -26,11 +26,11 @@ class AddStartup extends React.Component {
                         <textarea cols='40' rows='5' id='full-desc' className='border border-solid rounded-sm w-80 h-20'/>
                     </div>
                     <div className='staff mb-7'>
-                        <label htmlFor='staff' className='font-bold mr-2'>Штат(человек):</label>
+                        <label htmlFor='staff' className='font-bold mr-2 mb-2 block'>Штат(человек):</label>
                         <input type='text' id='staff' className='border border-solid rounded-sm'/>
                     </div>
                     <div className='turnover mb-7'>
-                        <label htmlFor='turnover' className='font-bold mr-2'>Годовой оборот(рублей):</label>
+                        <label htmlFor='turnover' className='font-bold mr-2 mb-2 block'>Годовой оборот(рублей):</label>
                         <input type='text' id='turnover' className='border border-solid rounded-sm'/>
                     </div>
                     <div className='vaccancies mb-7'>
