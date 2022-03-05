@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from './Card'
+import StartupCard from './StartupCard'
 import Filters from './Filters'
 
 class AddStartup extends React.Component {
