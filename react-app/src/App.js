@@ -7,6 +7,7 @@ import PersonalArea from './PersonalArea'
 import AddStartup from './AddStartup'
 import MainPage from './MainPage'
 import Enter from './Enter'
+import ModeratorPage from './ModeratorPage';
 import {BrowserRouter as Router,
         Routes,
         Route,
@@ -69,6 +70,9 @@ class App extends React.Component {
                     <Route
                         exact path='/personal'
                         element={<PersonalArea onTitleChanged={this.handleTitleChanged}/>}/>
+                    <Route
+                        exact path='/moderator'
+                        element={<ModeratorPage onTitleChanged={this.handleTitleChanged}/>}/>
                 </Routes>
                 <footer className='bot-bar'>
 
