@@ -37,7 +37,7 @@ class App extends React.Component {
                     <Route exact path='/' element={<MainPage/>}/>
                     <Route exact path='/login' element={<Enter/>}/>
                     <Route exact path='/signup' element={<Register/>}/>
-                    <Route exact path='/startup' element={<Startup/>}/>
+                    <Route exact path='/startup/:id' element={<Startup/>}/>
                     <Route exact path='/addstartup' element={<AddStartup/>}/>
                 </Routes>
                 <footer className='bot-bar'>
