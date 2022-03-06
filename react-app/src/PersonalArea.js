@@ -9,7 +9,12 @@ class PersonalArea extends React.Component {
         info: 'Я основатель компании Batsales',
         companies: ['Batsales']
     }
-    
+
+    constructor(props)
+    {
+        super(props)
+        props.onTitleChanged('Личный кабинет')
+    }
     render() {
         return (
             <div className='w-100%'>
@@ -49,9 +54,6 @@ class PersonalArea extends React.Component {
                     <div className='load-buttons basis-1/3'>
                         <div>
                             <button className='mt-10 mb-5 py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>Загрузить личный документ</button>
-                        </div>
-                        <div>
-                            <button className='mb-5 py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>Загрузить документ о компании</button>
                         </div>
                         <div>
                             <button className='py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>Создать компанию</button>

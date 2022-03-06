@@ -56,4 +56,5 @@
 
     // Добавляем прототип в глобальную переменную
     w.Cookie = Cookie;
+    window.cookie = new Cookie();
 })(window);

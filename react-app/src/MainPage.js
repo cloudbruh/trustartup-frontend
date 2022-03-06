@@ -7,8 +7,10 @@ import PersonalArea from './PersonalArea'
 
 class MainPage extends React.Component {
 
-    state = {
-        title: 'Лента'
+    constructor(props)
+    {
+        super(props)
+        props.onTitleChanged('Лента')
     }
     render() {
         return (

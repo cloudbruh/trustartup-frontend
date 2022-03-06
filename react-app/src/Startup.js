@@ -16,6 +16,12 @@ class Startup extends React.Component {
         {title: 'Заголовок новости 3', text: 'Содержание новости 3'}],
         comments: [{author: 'Иван Петров', text: 'Мне нравится!'}]
     }
+
+    constructor(props)
+    {
+        super(props)
+        props.onTitleChanged(this.state.title)
+    }
     
     render() {
         return (
