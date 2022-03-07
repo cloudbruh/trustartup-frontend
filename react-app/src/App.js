@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from './Card'
+import StartupCard from './StartupCard'
 import Filters from './Filters'
 import Register from './Register'
 import Startup from './Startup'
@@ -62,7 +62,7 @@ class App extends React.Component {
                         exact path='/signup'
                         element={<Register onTitleChanged={this.handleTitleChanged}/>}/>
                     <Route
-                        exact path='/startup'
+                        exact path='/startup/:id'
                         element={<Startup onTitleChanged={this.handleTitleChanged}/>}/>
                     <Route
                         exact path='/addstartup'
