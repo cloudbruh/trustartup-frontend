@@ -11,6 +11,12 @@ class Startup extends React.Component {
         comments: [{author: 'Иван Петров', text: 'Мне нравится!'}]
     }
 
+    constructor(props)
+    {
+        super(props)
+        props.onTitleChanged(this.state.title)
+    }
+      
     componentDidMount() {
         fetch('http://localhost:8080/api/feed/api/startup/' + this.props.params.id)
             .then(res => res.json())

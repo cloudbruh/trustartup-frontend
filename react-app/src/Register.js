@@ -16,6 +16,7 @@ class Register extends React.Component {
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePass = this.handleChangePass.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        props.onTitleChanged('Регистрация')
       }
 
     async handleSubmit(event) {
@@ -37,7 +38,8 @@ class Register extends React.Component {
           alert(resp.message)
         else
         {
-          window.cookie.set('token', resp.token)  
+          window.cookie.set('token', resp.token)
+          alert('Успешно зарегистрирован!')
         }
         event.preventDefault();
       }

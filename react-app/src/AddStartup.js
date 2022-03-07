@@ -7,6 +7,12 @@ class AddStartup extends React.Component {
     state = {
         title: 'Добавить компанию'
     }
+
+    constructor(props)
+    {
+        super(props)
+        props.onTitleChanged('Добавить стартап')
+    }
     
     render() {
         return (

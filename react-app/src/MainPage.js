@@ -11,6 +11,12 @@ class MainPage extends React.Component {
         startups: [],
     };
 
+    constructor(props)
+    {
+        super(props)
+        props.onTitleChanged('Лента')
+    }
+
     componentDidMount() {
         fetch('http://localhost:8080/api/feed/api/startupfeed')
           .then(res => res.json())
