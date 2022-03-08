@@ -15,7 +15,7 @@ class StartupCard extends React.Component {
                         <p className='card-staff block'><b>Подписчиков:</b> {this.props.startup.followers}</p>
                         <p className='card-places block '><b>Цель:</b> {this.props.startup.fundsGoal}</p>
                     </div>
-                    <img src={"http://localhost:8080/api/media/api/media/download/" + this.props.startup.thumbnailLink} />
+                    <img src={"/api/media/api/media/download/" + this.props.startup.thumbnailLink} />
                 </div>
             </Link>
         )

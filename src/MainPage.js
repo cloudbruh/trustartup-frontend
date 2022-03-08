@@ -18,7 +18,7 @@ class MainPage extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8080/api/feed/api/startupfeed')
+        fetch('/api/feed/api/startupfeed')
           .then(res => res.json())
           .then((result) => {
             this.setState({
