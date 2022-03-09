@@ -2,22 +2,113 @@ import React from 'react';
 import {Link} from 'react-router-dom'
 
 class StartupCard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            startup: props.startup,
+            token: props.token,
+        };
+
+        this.handleLikeClick = this.handleLikeClick.bind(this)
+        this.handleFollowClick = this.handleFollowClick.bind(this)
+    }
+
+    handleLikeClick(event) {
+        if (this.state.startup.liked) {
+            fetch('/api/feed/api/startup/' + this.state.startup.id + "/like", {
+                method: "DELETE",
+                headers: {
+                    'Authorization': `Bearer ${this.state.token}`
+                },
+            })
+            .then(res => res.json())
+            .then((result) => {
+                this.setState({
+                    startup: {...this.state.startup, likes: result.likes, liked: result.liked}
+                });
+            })
+            .catch((error) => {
+                alert(error);
+            });
+        } else {
+            fetch('/api/feed/api/startup/' + this.state.startup.id + "/like", {
+                method: "POST",
+                headers: {
+                    'Authorization': `Bearer ${this.state.token}`
+                },
+            })
+            .then(res => res.json())
+            .then((result) => {
+                this.setState({
+                    startup: {...this.state.startup, likes: result.likes, liked: result.liked}
+                });
+            })
+            .catch((error) => {
+                alert(error);
+            });
+        }
+    }
+
+    handleFollowClick(event) {
+        if (this.state.startup.followed) {
+            fetch('/api/feed/api/startup/' + this.state.startup.id + "/follow", {
+                method: "DELETE",
+                headers: {
+                    'Authorization': `Bearer ${this.state.token}`
+                },
+            })
+            .then(res => res.json())
+            .then((result) => {
+                this.setState({
+                    startup: {...this.state.startup, follows: result.follows, followed: result.followed}
+                });
+            })
+            .catch((error) => {
+                alert(error);
+            });
+        } else {
+            fetch('/api/feed/api/startup/' + this.state.startup.id + "/follow", {
+                method: "POST",
+                headers: {
+                    'Authorization': `Bearer ${this.state.token}`
+                },
+            })
+            .then(res => res.json())
+            .then((result) => {
+                this.setState({
+                    startup: {...this.state.startup, follows: result.follows, followed: result.followed}
+                });
+            })
+            .catch((error) => {
+                alert(error);
+            });
+        }
+    }
+
     render() {
         return (
-            <Link to={'/startup/' + this.props.startup.id}>
-                <div className='card bg-card border-solid mx-auto relative w-2/5 px-2 py-5 mb-20'>
-                    <div className='mb-3'>
-                        <h1 className='card-title font-bold text-center mb-2'>{this.props.startup.name}</h1>
-                        <p className='card-desc text-center mb-2'>{this.props.startup.descriptionShort}</p>
+            <div className="max-w-xl mx-auto my-5 rounded-xl overflow-hidden shadow-dark shadow-sm bg-card">
+                {this.state.startup.thumbnailLink && (
+                    <img className='w-full' src={"/api/media/api/media/download/" + this.state.startup.thumbnailLink}></img>
+                )}
+                <div className='p-2'>
+                    <Link to={'/startup/' + this.state.startup.id}>
+                        <div className="font-medium text-lg">{this.state.startup.name}</div>
+                    </Link>
+                    <div className="text-light">{this.state.startup.userName} {this.state.startup.userSurname}</div>
+                    <div className="flex my-1">
+                        <div className="flex-1 h-6 bg-dark rounded-full">
+                            <div className="h-6 px-2 bg-blue rounded-full text-white text-right" style={{width: "82%"}}>$1000</div>
+                        </div>
+                        <div className="ml-2">из {this.state.startup.fundsGoal}</div>
                     </div>
-                    <div className='text-center'>
-                        <p className='card-staff block'><b>Лайков:</b> {this.props.startup.likes}</p>
-                        <p className='card-staff block'><b>Подписчиков:</b> {this.props.startup.followers}</p>
-                        <p className='card-places block '><b>Цель:</b> {this.props.startup.fundsGoal}</p>
+                    <p>{this.state.startup.descriptionShort}</p>
+                    <div className="mt-2">
+                        <button type='button' className="p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white" onClick={this.handleLikeClick}>{this.state.startup.likes} лайков</button>
+                        <button className="p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white" onClick={this.handleFollowClick}>{this.state.startup.follows} подписок</button>
                     </div>
-                    <img src={"/api/media/api/media/download/" + this.props.startup.thumbnailLink} />
                 </div>
-            </Link>
+            </div>
         )
     }
 }

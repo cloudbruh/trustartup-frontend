@@ -15,10 +15,15 @@ class MainPage extends React.Component {
     {
         super(props)
         props.onTitleChanged('Лента')
+        this.state.token = window.cookie.get('token')
     }
 
     componentDidMount() {
-        fetch('/api/feed/api/startupfeed')
+        fetch('/api/feed/api/startupfeed', {
+            headers: {
+                'Authorization': `Bearer ${this.state.token}`
+            },
+        })
           .then(res => res.json())
           .then((result) => {
             this.setState({
@@ -33,7 +38,7 @@ class MainPage extends React.Component {
                     <ul>
                         {this.state.startups.map(startup => {
                             return (
-                                <li key={startup.id}><StartupCard startup={startup} /></li>
+                                <li key={startup.id}><StartupCard startup={startup} token={this.state.token} /></li>
                             );
                         })}
                     </ul>

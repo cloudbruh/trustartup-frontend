@@ -1,9 +1,12 @@
 import React from 'react';
 function CommentCard(props) {
      return (
-        <div key={props.comment.id} className='mx-auto text-center w-5/12 h-40 pt-3 mt-10 mb-10 bg-card rounded-xl'>
-            <h2 className='font-bold text-xl mb-5'>{props.comment.userName} {props.comment.userSurname}</h2>
-            <p>{props.comment.text}</p>
+        <div className="max-w-xl mx-auto my-5 rounded-xl overflow-hidden shadow-dark shadow-sm bg-card">
+            <div className='p-2'>
+                <div className="text-light">{props.comment.userName} {props.comment.userSurname}</div>
+                <div className="text-light">{props.comment.createdAt}</div>
+                <p>{props.comment.text}</p>
+            </div>
         </div>
         )
 }
