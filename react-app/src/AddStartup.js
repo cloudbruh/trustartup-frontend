@@ -45,7 +45,7 @@ class AddStartup extends React.Component {
                     </div>
                     <div className='docs'>
                         <label htmlFor='docs' className='font-bold mr-2'>Загрузить документ:</label>
-                        <button id='docs' className='font-bold py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>+</button>
+                        <input type='file' id='docs' className='mb-5 mt-3'/>
                     </div>
                     <div className='text-center mt-20'>
                         <button className='py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>Сохранить</button>

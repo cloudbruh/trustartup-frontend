@@ -1,26 +1,45 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 class PersonalArea extends React.Component {
 
     state = {
-        title: 'Личный кабинет',
-        name: 'Зубенко Михаил Петрович',
-        tel: '8(800)5553535',
-        info: 'Я основатель компании Batsales',
-        companies: ['Batsales']
+        name: undefined,
+        surname: undefined,
+        tel: undefined,
+        desc: undefined,
+        companies: []
     }
 
     constructor(props)
     {
         super(props)
-        props.onTitleChanged('Личный кабинет')
+        this.init()
     }
+
+    async init()
+    {
+        this.props.onTitleChanged('Личный кабинет')
+        let token = window.cookie.get('token')
+        let data = await fetch('http://192.168.1.69:8080/api/business/current_user', {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }).then((res) => res.json())
+        this.setState({
+            name: data.name,
+            surname: data.surname,
+            tel: data.tel,
+            desc: data.description
+        })
+    }
+
     render() {
         return (
             <div className='w-100%'>
                 <div className='flex flex-row w-100%'>
                     <div className='main-info mx-auto mt-10 text-center'>
-                        <p className='font-bold text-2xl'>{this.state.name}</p>
+                        <p className='font-bold text-2xl'>{this.state.surname + ' ' + this.state.name}</p>
                         <p className='font-bold text-2xl'>{this.state.tel}</p>
                     </div>
                 </div>
@@ -28,7 +47,7 @@ class PersonalArea extends React.Component {
                     <div className='companies-list basis-1/4 ml-40 mx-auto'>
                         <p className='font-bold'>Мои компании:</p>
                         <ul className='list-disc'>
-                        {this.state.companies.map(comp => {return <li>{comp}</li>})}
+                        {this.state.companies.map(startup => {return <li><Link to={'/startup/' + startup.id}>{startup.name}</Link></li>})}
                         </ul>
                     </div>
                     <div className='personal-data basis-1/3 mx-auto mt-10'>
@@ -52,17 +71,18 @@ class PersonalArea extends React.Component {
                         </div>
                     </div>
                     <div className='load-buttons basis-1/3'>
+                        {/*<div>
+                            <p>Загрузить документ о компании:</p>
+                            <input type='file' className='mb-5 mt-3'/>
+                        </div>*/}
                         <div>
-                            <button className='mt-10 mb-5 py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>Загрузить личный документ</button>
-                        </div>
-                        <div>
-                            <button className='py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>Создать компанию</button>
+                            <Link to='/addstartup'><button className='py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>Создать компанию</button></Link>
                         </div>
                     </div>
                 </div>
                 <div className='about-container mt-10 w-96 mx-auto text-center'>
                         <h2 className='font-bold'>О себе:</h2>
-                        <p>{this.state.info}</p>
+                        <p>{this.state.desc}</p>
                     </div>
             </div>
         )

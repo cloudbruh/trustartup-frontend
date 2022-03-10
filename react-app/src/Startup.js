@@ -18,7 +18,7 @@ class Startup extends React.Component {
     }
       
     componentDidMount() {
-        fetch('http://localhost:8080/api/feed/api/startup/' + this.props.params.id)
+        fetch('api/feed/api/startup/' + this.props.params.id)
             .then(res => res.json())
             .then((result) => {
                 this.setState({
@@ -26,7 +26,7 @@ class Startup extends React.Component {
                 });
             });
         
-        fetch('http://localhost:8080/api/feed/api/startup/' + this.props.params.id + '/posts/')
+        fetch('api/feed/api/startup/' + this.props.params.id + '/posts/')
             .then(res => res.json())
             .then((result) => {
                 this.setState({
@@ -34,7 +34,7 @@ class Startup extends React.Component {
                 });
             });
 
-        fetch('http://localhost:8080/api/feed/api/startup/' + this.props.params.id + '/comments/')
+        fetch('api/feed/api/startup/' + this.props.params.id + '/comments/')
             .then(res => res.json())
             .then((result) => {
                 this.setState({

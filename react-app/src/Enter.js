@@ -11,13 +11,17 @@ class Enter extends React.Component {
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
         this.handleChangePass = this.handleChangePass.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        props.onTitleChanged('Вход')
       }
+
+    componentDidMount()
+    {
+      this.props.onTitleChanged('Вход')
+    }
 
     async handleSubmit(event) {
         let req;
         try{
-        req = await fetch('http://192.168.1.69:8087/login?' + 'email=' + this.state.email + '&password=' + this.state.pass,
+        req = await fetch('http://192.168.1.69:8080/api/auth/login?' + 'email=' + this.state.email + '&password=' + this.state.pass,
         {method: 'POST',
         headers: {  
           "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
@@ -34,6 +38,8 @@ class Enter extends React.Component {
         else
         {
           window.cookie.set('token', resp.token)
+          this.props.onAuthorized(resp.token)
+          alert('Успешный вход!')
           //TODO(перекинуть на предыдущую страницу) 
         }
         event.preventDefault();

@@ -8,7 +8,11 @@ import PersonalArea from './PersonalArea'
 class MainPage extends React.Component {
 
     state = {
-        startups: [],
+        startups: [{name: 'Sample name',
+                    descriptionShort: 'Sample desc',
+                    likes: 100,
+                    followers: 200,
+                    fundsGoal: 100000}],
     };
 
     constructor(props)
@@ -18,9 +22,15 @@ class MainPage extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8080/api/feed/api/startupfeed')
+        fetch('http://192.168.1.69:8080/api/feed/api/startupfeed', 
+        {method: 'GET',
+        headers: {  
+          "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
+        },  
+         mode: 'cors'})
           .then(res => res.json())
           .then((result) => {
+            alert(result)
             this.setState({
                 startups: result
             });
