@@ -8,6 +8,7 @@ class PersonalArea extends React.Component {
         surname: undefined,
         tel: undefined,
         desc: undefined,
+        isCreator: false,
         companies: []
     }
 
@@ -30,7 +31,8 @@ class PersonalArea extends React.Component {
             name: data.name,
             surname: data.surname,
             tel: data.tel,
-            desc: data.description
+            desc: data.description,
+            isCreator: data.roles.includes('CREATOR')
         })
     }
 
@@ -76,7 +78,12 @@ class PersonalArea extends React.Component {
                             <input type='file' className='mb-5 mt-3'/>
                         </div>*/}
                         <div>
-                            <Link to='/addstartup'><button className='py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>Создать компанию</button></Link>
+                            {this.state.isCreator ? 
+                            <Link to='/addstartup'><button className='py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>Создать компанию</button></Link> :
+                            <button disabled className='py-2 px-4 text-sm font-medium rounded-md text-white bg-card'>Создать компанию</button>}
+                        </div>
+                        <div>
+                            <Link to='/loaddoc'><button className='mt-10 py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>Загрузить документ</button></Link>
                         </div>
                     </div>
                 </div>

@@ -30,7 +30,6 @@ class MainPage extends React.Component {
          mode: 'cors'})
           .then(res => res.json())
           .then((result) => {
-            alert(result)
             this.setState({
                 startups: result
             });
