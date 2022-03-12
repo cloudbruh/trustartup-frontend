@@ -8,22 +8,26 @@ import PersonalArea from './PersonalArea'
 class MainPage extends React.Component {
 
     state = {
-        startups: [],
+        startups: [{name: 'Sample name',
+                    descriptionShort: 'Sample desc',
+                    likes: 100,
+                    followers: 200,
+                    fundsGoal: 100000}],
     };
 
     constructor(props)
     {
         super(props)
         props.onTitleChanged('Лента')
-        this.state.token = window.cookie.get('token')
     }
 
     componentDidMount() {
-        fetch('/api/feed/api/startupfeed', {
-            headers: {
-                'Authorization': `Bearer ${this.state.token}`
-            },
-        })
+        fetch('/api/feed/api/startupfeed', 
+        {method: 'GET',
+        headers: {  
+          "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
+        },  
+         mode: 'cors'})
           .then(res => res.json())
           .then((result) => {
             this.setState({
@@ -38,7 +42,7 @@ class MainPage extends React.Component {
                     <ul>
                         {this.state.startups.map(startup => {
                             return (
-                                <li key={startup.id}><StartupCard startup={startup} token={this.state.token} /></li>
+                                <li key={startup.id}><StartupCard startup={startup} /></li>
                             );
                         })}
                     </ul>

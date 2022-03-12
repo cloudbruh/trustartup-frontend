@@ -34,6 +34,8 @@ class Enter extends React.Component {
         else
         {
           window.cookie.set('token', resp.token)
+          this.props.onAuthorized(resp.token)
+          alert('Успешный вход!')
           //TODO(перекинуть на предыдущую страницу) 
         }
         event.preventDefault();

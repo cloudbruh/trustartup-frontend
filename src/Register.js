@@ -39,6 +39,7 @@ class Register extends React.Component {
         else
         {
           window.cookie.set('token', resp.token)
+          this.props.onAuthorized(resp.token)
           alert('Успешно зарегистрирован!')
         }
         event.preventDefault();
