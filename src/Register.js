@@ -22,7 +22,7 @@ class Register extends React.Component {
     async handleSubmit(event) {
         let req;
         try{
-        req = await fetch('http://192.168.1.69:8080/api/auth/register?name=' + this.state.name + '&surname=' + this.state.surname + '&email=' + this.state.email + '&password=' + this.state.pass,
+        req = await fetch('/api/auth/register?name=' + this.state.name + '&surname=' + this.state.surname + '&email=' + this.state.email + '&password=' + this.state.pass,
         {method: 'POST',
         headers: {  
           "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  

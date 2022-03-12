@@ -25,7 +25,7 @@ class PersonalArea extends React.Component {
     {
         this.props.onTitleChanged('Личный кабинет')
         let token = window.cookie.get('token')
-        let data = await fetch('http://192.168.1.69:8080/api/business/current_user', {
+        let data = await fetch('/api/business/current_user', {
             headers: {
                 Authorization: 'Bearer ' + token
             }
@@ -54,7 +54,6 @@ class PersonalArea extends React.Component {
             updateDesc: false
         })
     }
-
     render() {
         return (
             <div className='w-100%'>

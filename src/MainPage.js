@@ -22,7 +22,7 @@ class MainPage extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://192.168.1.69:8080/api/feed/api/startupfeed', 
+        fetch('/api/feed/api/startupfeed', 
         {method: 'GET',
         headers: {  
           "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  

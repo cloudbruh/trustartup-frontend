@@ -42,7 +42,7 @@ class App extends React.Component {
             return
         let data, resp
         try{
-            resp = await fetch('http://192.168.1.69:8080/api/business/current_user', {
+            resp = await fetch('/api/business/current_user', {
                 headers: {
                     Authorization: 'Bearer ' + token
                 }
@@ -78,7 +78,7 @@ class App extends React.Component {
     {
         let data, resp
         try{
-            resp = await fetch('http://192.168.1.69:8080/api/business/current_user', {
+            resp = await fetch('/api/business/current_user', {
                 headers: {
                     Authorization: 'Bearer ' + token
                 }
