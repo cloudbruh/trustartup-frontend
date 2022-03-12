@@ -29,7 +29,7 @@ class LoadDoc extends React.Component {
         fd.append('type', this.state.role)
         fd.append('content', this.state.desc)
         try{
-        req = await fetch('http://192.168.1.69:8080/api/business/request_role',
+        req = await fetch('/api/business/request_role',
         {method: 'POST',
         headers: {  
            Authorization: 'Bearer '+ window.cookie.get('token')  
