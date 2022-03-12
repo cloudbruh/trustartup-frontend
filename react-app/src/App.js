@@ -92,7 +92,7 @@ class App extends React.Component {
         data = await resp.json()
         if(!resp.ok)
         {
-            alert(data.message)
+            //alert(data.message)
             return
         }
         window.cookie.set('token', token)

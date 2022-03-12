@@ -9,6 +9,7 @@ class PersonalArea extends React.Component {
         tel: undefined,
         desc: undefined,
         isCreator: false,
+        updateDesc: false,
         companies: []
     }
 
@@ -16,6 +17,8 @@ class PersonalArea extends React.Component {
     {
         super(props)
         this.init()
+        this.onChangeDescClick = this.onChangeDescClick.bind(this)
+        this.onSaveClick = this.onSaveClick.bind(this)
     }
 
     async init()
@@ -33,6 +36,22 @@ class PersonalArea extends React.Component {
             tel: data.tel,
             desc: data.description,
             isCreator: data.roles.includes('CREATOR')
+        })
+    }
+
+    onChangeDescClick()
+    {
+        this.setState({
+            updateDesc: true
+        })
+    }
+
+    onSaveClick()
+    {
+        let desc  = document.getElementById('new-user-desc').value
+        this.setState({
+            desc: desc,
+            updateDesc: false
         })
     }
 
@@ -87,9 +106,17 @@ class PersonalArea extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className='about-container mt-10 w-96 mx-auto text-center'>
-                        <h2 className='font-bold'>О себе:</h2>
-                        <p>{this.state.desc}</p>
+                <div className='about-container mt-10 w-96 text-center mx-auto'>
+                        <h2 className='font-bold mx-auto'>О себе:</h2> 
+                        {!this.state.updateDesc ? 
+                        <div>
+                            <p>{this.state.desc}</p>
+                            <button className='mx-auto mt-20 py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700' onClick={this.onChangeDescClick}>Изменить</button>
+                        </div> : 
+                        <div>
+                            <textarea cols='40' rows='15' id='new-user-desc' className='border border-solid rounded-sm w-80 h-20'/>
+                            <button className='text-center py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700' onClick={this.onSaveClick}>Сохранить</button>
+                        </div>}
                     </div>
             </div>
         )
