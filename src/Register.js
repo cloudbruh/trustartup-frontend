@@ -2,6 +2,7 @@ import React from 'react';
 import StartupCard from './StartupCard'
 import Filters from './Filters'
 import './cookie'
+import * as c from './constants'
 
 class Register extends React.Component {
 
@@ -22,7 +23,7 @@ class Register extends React.Component {
     async handleSubmit(event) {
         let req;
         try{
-        req = await fetch('/api/auth/register?name=' + this.state.name + '&surname=' + this.state.surname + '&email=' + this.state.email + '&password=' + this.state.pass,
+        req = await fetch(c.addr + '/api/auth/register?name=' + this.state.name + '&surname=' + this.state.surname + '&email=' + this.state.email + '&password=' + this.state.pass,
         {method: 'POST',
         headers: {  
           "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  

@@ -1,5 +1,6 @@
 import React from 'react';
 import './cookie'
+import * as c from './constants'
 
 class Enter extends React.Component {
 
@@ -17,7 +18,7 @@ class Enter extends React.Component {
     async handleSubmit(event) {
         let req;
         try{
-        req = await fetch('/api/auth/login?' + 'email=' + this.state.email + '&password=' + this.state.pass,
+        req = await fetch(c.addr + '/api/auth/login?' + 'email=' + this.state.email + '&password=' + this.state.pass,
         {method: 'POST',
         headers: {  
           "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  

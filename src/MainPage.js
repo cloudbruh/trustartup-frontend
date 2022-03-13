@@ -4,6 +4,7 @@ import Filters from './Filters'
 import Register from './Register'
 import Startup from './Startup'
 import PersonalArea from './PersonalArea'
+import * as c from './constants';
 
 class MainPage extends React.Component {
 
@@ -35,7 +36,7 @@ class MainPage extends React.Component {
         this.setState({
             isLoading: true
         });
-        fetch('/api/feed/api/startupfeed?offset=' + this.state.offset, {
+        fetch(c.addr + '/api/feed/api/startupfeed?offset=' + this.state.offset, {
             headers: {
                 'Authorization': `Bearer ${this.state.token}`
             },

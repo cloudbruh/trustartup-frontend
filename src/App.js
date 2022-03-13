@@ -14,6 +14,7 @@ import {BrowserRouter as Router,
         Route,
         Link} from 'react-router-dom'
 import './cookie'
+import * as c from './constants';
 
 class App extends React.Component {
 
@@ -42,7 +43,7 @@ class App extends React.Component {
             return
         let data, resp
         try{
-            resp = await fetch('/api/business/current_user', {
+            resp = await fetch(c.addr + '/api/business/current_user', {
                 headers: {
                     Authorization: 'Bearer ' + token
                 }
@@ -78,7 +79,7 @@ class App extends React.Component {
     {
         let data, resp
         try{
-            resp = await fetch('/api/business/current_user', {
+            resp = await fetch(c.addr + '/api/business/current_user', {
                 headers: {
                     Authorization: 'Bearer ' + token
                 }
