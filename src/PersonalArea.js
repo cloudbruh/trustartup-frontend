@@ -7,7 +7,6 @@ class PersonalArea extends React.Component {
     state = {
         name: undefined,
         surname: undefined,
-        tel: undefined,
         desc: undefined,
         isCreator: false,
         updateDesc: false,
@@ -31,14 +30,11 @@ class PersonalArea extends React.Component {
                 Authorization: 'Bearer ' + token
             }
         }).then((res) => res.json())
-        let roles = []
-        data.roles.forEach((role) => roles.push(role.type))
         this.setState({
             name: data.name,
             surname: data.surname,
-            tel: data.tel,
             desc: data.description,
-            isCreator: roles.includes('CREATOR')
+            isCreator: data.roles.some((role) => role.type === 'CREATOR')
         })
     }
 
@@ -63,7 +59,6 @@ class PersonalArea extends React.Component {
                 <div className='flex flex-row w-100%'>
                     <div className='main-info mx-auto mt-10 text-center'>
                         <p className='font-bold text-2xl'>{this.state.surname + ' ' + this.state.name}</p>
-                        <p className='font-bold text-2xl'>{this.state.tel}</p>
                     </div>
                 </div>
                 <div className='flex flex-row'>

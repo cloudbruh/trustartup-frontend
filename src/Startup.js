@@ -12,17 +12,20 @@ class Startup extends React.Component {
             imageLinks: []
         },
         posts: [],
-        comments: [{author: 'Иван Петров', text: 'Мне нравится!'}]
+        comments: [{author: 'Иван Петров', text: 'Мне нравится!'}],
+        commentDraft: "",
     }
 
     constructor(props)
     {
-        super(props)
-        props.onTitleChanged(this.state.title)
-        this.state.token = window.cookie.get('token')
+        super(props);
+        props.onTitleChanged(this.state.title);
+        this.state.token = window.cookie.get('token');
 
-        this.handleLikeClick = this.handleLikeClick.bind(this)
-        this.handleFollowClick = this.handleFollowClick.bind(this)
+        this.handleLikeClick = this.handleLikeClick.bind(this);
+        this.handleFollowClick = this.handleFollowClick.bind(this);
+        this.handleCommentInput = this.handleCommentInput.bind(this);
+        this.postComment = this.postComment.bind(this);
     }
       
     componentDidMount() {
@@ -50,6 +53,10 @@ class Startup extends React.Component {
                 });
             });
 
+            this.updateComments();
+    }
+
+    updateComments() {
         fetch(c.addr + '/api/feed/api/startup/' + this.props.params.id + '/comments/', {
             headers: {
                 'Authorization': `Bearer ${this.state.token}`
@@ -134,6 +141,39 @@ class Startup extends React.Component {
             });
         }
     }
+
+    handleCommentInput(event) {
+        this.setState({
+            commentDraft: event.target.value,
+        });
+    }
+
+    postComment(event) {
+        if (this.state.commentDraft == "") {
+            return;
+        }
+
+        fetch('/api/feed/api/startup/' + this.state.startup.id + '/comment', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${this.state.token}`,
+                'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify({
+                repliedId: null,
+                text: this.state.commentDraft,
+            }),
+        })
+        .then(res => res.json())
+        .then((result) => {
+            this.setState({
+                comments: [...this.state.comments, result]
+            });
+        })
+        .catch((error) => {
+            alert(error);
+        });
+    }
     
     render() {
         return (
@@ -164,6 +204,9 @@ class Startup extends React.Component {
                 </div>
                 <div className='comments mt-10'>
                     <h2 className='font-bold text-2xl text-center'>Комментарии</h2>
+                    <textarea onChange={this.handleCommentInput} className='w-full max-w-xl mx-auto my-5 p-1 h-40 rounded-xl block overflow-hidden shadow-dark shadow-sm' placeholder='Напишите ваш комментарий'></textarea>
+                    <button className='mx-auto my-5 p-2 block rounded-xl text-xl text-center bg-gray-200 shadow-dark shadow-sm hover:bg-blue hover:text-white'
+                        onClick={this.postComment}>Отправить</button>
                     {this.state.comments.map(comment => {return <CommentCard comment={comment}/>})}
                 </div>
             </div>
