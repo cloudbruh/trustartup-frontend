@@ -33,7 +33,7 @@ class PersonalArea extends React.Component {
             name: data.name,
             surname: data.surname,
             desc: data.description,
-            isCreator: data.roles.some((role) => role.type == 'CREATOR')
+            isCreator: data.roles.some((role) => role.type === 'CREATOR')
         })
     }
 
