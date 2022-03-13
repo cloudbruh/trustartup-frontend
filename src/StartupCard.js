@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
+import * as c from './constants';
 
 class StartupCard extends React.Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class StartupCard extends React.Component {
 
     handleLikeClick(event) {
         if (this.state.startup.liked) {
-            fetch('/api/feed/api/startup/' + this.state.startup.id + "/like", {
+            fetch(c.addr + '/api/feed/api/startup/' + this.state.startup.id + "/like", {
                 method: "DELETE",
                 headers: {
                     'Authorization': `Bearer ${this.state.token}`
@@ -31,7 +32,7 @@ class StartupCard extends React.Component {
                 alert(error);
             });
         } else {
-            fetch('/api/feed/api/startup/' + this.state.startup.id + "/like", {
+            fetch(c.addr + '/api/feed/api/startup/' + this.state.startup.id + "/like", {
                 method: "POST",
                 headers: {
                     'Authorization': `Bearer ${this.state.token}`
@@ -51,7 +52,7 @@ class StartupCard extends React.Component {
 
     handleFollowClick(event) {
         if (this.state.startup.followed) {
-            fetch('/api/feed/api/startup/' + this.state.startup.id + "/follow", {
+            fetch(c.addr + '/api/feed/api/startup/' + this.state.startup.id + "/follow", {
                 method: "DELETE",
                 headers: {
                     'Authorization': `Bearer ${this.state.token}`
@@ -67,7 +68,7 @@ class StartupCard extends React.Component {
                 alert(error);
             });
         } else {
-            fetch('/api/feed/api/startup/' + this.state.startup.id + "/follow", {
+            fetch(c.addr + '/api/feed/api/startup/' + this.state.startup.id + "/follow", {
                 method: "POST",
                 headers: {
                     'Authorization': `Bearer ${this.state.token}`
@@ -89,7 +90,7 @@ class StartupCard extends React.Component {
         return (
             <div className="max-w-xl mx-auto my-5 rounded-xl overflow-hidden shadow-dark shadow-sm bg-card">
                 {this.state.startup.thumbnailLink && (
-                    <img className='w-full' src={"/api/media/api/media/download/" + this.state.startup.thumbnailLink}></img>
+                    <img className='w-full' src={c.addr + "/api/media/api/media/download/" + this.state.startup.thumbnailLink}></img>
                 )}
                 <div className='p-2'>
                     <Link to={'/startup/' + this.state.startup.id}>

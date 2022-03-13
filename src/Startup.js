@@ -2,6 +2,8 @@ import React from 'react';
 import PostCard from './PostCard';
 import CommentCard from './CommentCard';
 import withParams from './hooks';
+import * as c from './constants';
+
 
 class Startup extends React.Component {
 
@@ -24,7 +26,7 @@ class Startup extends React.Component {
     }
       
     componentDidMount() {
-        fetch('/api/feed/api/startup/' + this.props.params.id, {
+        fetch(c.addr + '/api/feed/api/startup/' + this.props.params.id, {
             headers: {
                 'Authorization': `Bearer ${this.state.token}`
             },
@@ -36,7 +38,7 @@ class Startup extends React.Component {
                 });
             });
         
-        fetch('/api/feed/api/startup/' + this.props.params.id + '/posts/', {
+        fetch(c.addr + '/api/feed/api/startup/' + this.props.params.id + '/posts/', {
             headers: {
                 'Authorization': `Bearer ${this.state.token}`
             },
@@ -48,7 +50,7 @@ class Startup extends React.Component {
                 });
             });
 
-        fetch('/api/feed/api/startup/' + this.props.params.id + '/comments/', {
+        fetch(c.addr + '/api/feed/api/startup/' + this.props.params.id + '/comments/', {
             headers: {
                 'Authorization': `Bearer ${this.state.token}`
             },
@@ -63,7 +65,7 @@ class Startup extends React.Component {
 
     handleLikeClick(event) {
         if (this.state.startup.liked) {
-            fetch('/api/feed/api/startup/' + this.state.startup.id + "/like", {
+            fetch(c.addr + '/api/feed/api/startup/' + this.state.startup.id + "/like", {
                 method: "DELETE",
                 headers: {
                     'Authorization': `Bearer ${this.state.token}`
@@ -79,7 +81,7 @@ class Startup extends React.Component {
                 alert(error);
             });
         } else {
-            fetch('/api/feed/api/startup/' + this.state.startup.id + "/like", {
+            fetch(c.addr + '/api/feed/api/startup/' + this.state.startup.id + "/like", {
                 method: "POST",
                 headers: {
                     'Authorization': `Bearer ${this.state.token}`
@@ -99,7 +101,7 @@ class Startup extends React.Component {
 
     handleFollowClick(event) {
         if (this.state.startup.followed) {
-            fetch('/api/feed/api/startup/' + this.state.startup.id + "/follow", {
+            fetch(c.addr + '/api/feed/api/startup/' + this.state.startup.id + "/follow", {
                 method: "DELETE",
                 headers: {
                     'Authorization': `Bearer ${this.state.token}`
@@ -115,7 +117,7 @@ class Startup extends React.Component {
                 alert(error);
             });
         } else {
-            fetch('/api/feed/api/startup/' + this.state.startup.id + "/follow", {
+            fetch(c.addr + '/api/feed/api/startup/' + this.state.startup.id + "/follow", {
                 method: "POST",
                 headers: {
                     'Authorization': `Bearer ${this.state.token}`
@@ -138,7 +140,7 @@ class Startup extends React.Component {
             <div>
                 <div className="max-w-xl mx-auto my-5 rounded-xl overflow-hidden shadow-dark shadow-sm bg-card">
                     {this.state.startup.imageLinks.map(link => (
-                        <img className='w-full' src={"/api/media/api/media/download/" + link}></img>
+                        <img className='w-full' src={c.addr + "/api/media/api/media/download/" + link}></img>
                     ))}
                     <div className='p-2'>
                         <div className="font-medium text-lg">{this.state.startup.name}</div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import * as c from './constants';
 
 class PersonalArea extends React.Component {
 
@@ -25,17 +26,19 @@ class PersonalArea extends React.Component {
     {
         this.props.onTitleChanged('Личный кабинет')
         let token = window.cookie.get('token')
-        let data = await fetch('/api/business/current_user', {
+        let data = await fetch(c.addr + '/api/business/current_user', {
             headers: {
                 Authorization: 'Bearer ' + token
             }
         }).then((res) => res.json())
+        let roles = []
+        data.roles.forEach((role) => roles.push(role.type))
         this.setState({
             name: data.name,
             surname: data.surname,
             tel: data.tel,
             desc: data.description,
-            isCreator: data.roles.includes('CREATOR')
+            isCreator: roles.includes('CREATOR')
         })
     }
 

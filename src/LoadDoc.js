@@ -2,6 +2,7 @@ import React from 'react';
 import StartupCard from './StartupCard'
 import Filters from './Filters'
 import FormData from 'form-data';
+import * as c from './constants';
 
 class LoadDoc extends React.Component {
 
@@ -29,7 +30,7 @@ class LoadDoc extends React.Component {
         fd.append('type', this.state.role)
         fd.append('content', this.state.desc)
         try{
-        req = await fetch('http://192.168.1.69:8080/api/business/request_role',
+        req = await fetch(c.addr + '/api/business/request_role',
         {method: 'POST',
         headers: {  
            Authorization: 'Bearer '+ window.cookie.get('token')  

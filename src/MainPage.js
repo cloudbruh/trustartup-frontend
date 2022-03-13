@@ -4,6 +4,7 @@ import Filters from './Filters'
 import Register from './Register'
 import Startup from './Startup'
 import PersonalArea from './PersonalArea'
+import * as c from './constants';
 
 class MainPage extends React.Component {
 
@@ -22,7 +23,7 @@ class MainPage extends React.Component {
     }
 
     componentDidMount() {
-        fetch('/api/feed/api/startupfeed', 
+        fetch(c.addr + '/api/feed/api/startupfeed', 
         {method: 'GET',
         headers: {  
           "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
