@@ -10,7 +10,7 @@ class PersonalArea extends React.Component {
         desc: undefined,
         isCreator: false,
         updateDesc: false,
-        companies: []
+        startups: []
     }
 
     constructor(props)
@@ -35,6 +35,14 @@ class PersonalArea extends React.Component {
             surname: data.surname,
             desc: data.description,
             isCreator: data.roles.some((role) => role.type === 'CREATOR')
+        })
+        data = await fetch(c.addr + '/api/business/get_startups', {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }).then((res) => res.json())
+        this.setState({
+            startups: data
         })
     }
 
@@ -65,7 +73,7 @@ class PersonalArea extends React.Component {
                     <div className='companies-list basis-1/4 ml-40 mx-auto'>
                         <p className='font-bold'>Мои компании:</p>
                         <ul className='list-disc'>
-                        {this.state.companies.map(startup => {return <li><Link to={'/startup/' + startup.id}>{startup.name}</Link></li>})}
+                        {this.state.startups.map(startup => {return <li><Link to={'/startup/' + startup.id}>{startup.name}</Link></li>})}
                         </ul>
                     </div>
                     <div className='personal-data basis-1/3 mx-auto mt-10'>
