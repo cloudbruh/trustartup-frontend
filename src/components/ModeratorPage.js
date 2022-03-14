@@ -21,9 +21,9 @@ class ModeratorPage extends React.Component {
         });
     }
 
-    async handleAccept(id)
+    async handleAccept(id, cmnt)
     {
-        let response = await fetch(config.url + '/api/business/moderate?dataset_id=' + id + '&status=GRANTED&comment=granted',
+        let response = await fetch(config.url + '/api/business/moderate?dataset_id=' + id + '&status=GRANTED&comment=' + cmnt,
             {
                 method: 'POST',
                 headers: {
@@ -54,9 +54,9 @@ class ModeratorPage extends React.Component {
         }
     }
 
-    async handleDecline(id)
+    async handleDecline(id, cmnt)
     {
-        let response = await fetch(config.url + '/api/business/moderate?dataset_id=' + id + '&status=PROHIBITED&comment=prohibited',
+        let response = await fetch(config.url + '/api/business/moderate?dataset_id=' + id + '&status=PROHIBITED&comment=' + cmnt ,
             {
                 method: 'POST',
                 headers: {
@@ -103,9 +103,13 @@ class ModeratorPage extends React.Component {
                                 <img key={link} className='w-full' src={config.url + "/api/media/api/media/download/" + link} alt="документ компании"></img>
                             ))}
                         </div>
+                        <div className='text-center mt-5'>
+                            <label htmlFor='text' className='font-bold mr-2 mb-2 block'>Комментарий:</label>
+                            <textarea cols='40' rows='5' id={'text' + dataset.id} className='border border-solid rounded-sm w-80 h-20' />
+                        </div>
                         <div className='text-center'>
-                            <button className='mt-10 mb-5 py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700' onClick={(e) => this.handleAccept(dataset.id)}>Одобрить</button>
-                            <button className='mt-10 ml-5 mb-5 py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700' onClick={(e) => this.handleDecline(dataset.id)}>Отклонить</button>
+                            <button className='mt-10 mb-5 py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700' onClick={(e) => this.handleAccept(dataset.id, document.getElementById('text' + dataset.id).value)}>Одобрить</button>
+                            <button className='mt-10 ml-5 mb-5 py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700' onClick={(e) => this.handleDecline(dataset.id, document.getElementById('text' + dataset.id).value)}>Отклонить</button>
                         </div>
                     </div>
                 ) : null)}
