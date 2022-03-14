@@ -1,6 +1,4 @@
 import React from 'react';
-import StartupCard from './components/StartupCard'
-//import Filters from './components/Filters'
 import Register from './components/Register'
 import Startup from './components/Startup'
 import PersonalArea from './components/PersonalArea'
@@ -21,16 +19,15 @@ class App extends React.Component {
 
     state = {
         title: 'Trustartup',
-        token: undefined,
+        user: undefined,
         authorized: false,
         name: undefined,
         surname: undefined
     }
 
     constructor(props) {
-        super(props)
-        this.handleAuthorization = this.handleAuthorization.bind(this)
-        this.init()
+        super(props);
+        this.init();
     }
 
     handleTitleChange = (title) => {
@@ -38,59 +35,35 @@ class App extends React.Component {
     }
 
     async init() {
-        let token = window.cookie.get('token')
-        if (!token)
-            return
-        let data, resp
-        try {
-            resp = await fetch(config.url + '/api/business/current_user', {
-                headers: {
-                    Authorization: 'Bearer ' + token
-                }
-            })
-        }
-        catch (e) {
-            alert(e)
-            return
-        }
-        data = await resp.json()
-        if (!resp.ok) {
-            alert(data.message)
-            return
+        if (!window.token)
+            return;
+
+        let response = await fetch(config.url + '/api/business/current_user', {
+            headers: {
+                Authorization: 'Bearer ' + window.token
+            }
+        })
+        let data = await response.json()
+        if (!response.ok) {
+            alert(data.message);
+            return;
         }
         this.setState({
-            token: token,
-            name: data.name,
-            surname: data.surname,
-            authorized: true
+            user: data,
         })
     }
 
-    async handleAuthorization(token) {
-        let data, resp
-        try {
-            resp = await fetch(config.url + '/api/business/current_user', {
-                headers: {
-                    Authorization: 'Bearer ' + token
-                }
-            })
-        }
-        catch (e) {
-            alert(e)
-            return
-        }
-        data = await resp.json()
-        if (!resp.ok) {
-            //alert(data.message)
-            return
-        }
-        window.cookie.set('token', token)
+    handleAuthorization = async (token) => {
+        window.cookie.set('token', token);
+        window.token = token;
+        let response = await fetch(config.url + '/api/business/current_user', {
+            headers: {
+                Authorization: 'Bearer ' + window.token,
+            }
+        })
+        let data = await response.json();
         this.setState({
-            title: this.state.title,
-            token: token,
-            authorized: true,
-            name: data.name,
-            surname: data.surname
+            user: data,
         })
     }
     render() {
@@ -99,13 +72,13 @@ class App extends React.Component {
                 <header className='top-bar bg-blue '>
                     <div className='flex flex-row items-center h-16'>
                         <div className='basis-1/6'>
-                            <Link to='/'><p className='pl-10 text-left font-bold text-white text-xl'>Trustartup</p></Link>
+                            <Link to='/'><div className='pl-10 text-left font-bold text-white text-xl'>Trustartup</div></Link>
                         </div>
                         <div className='basis-2/3'>
-                            <p className='title text-center font-bold text-white text-xl'>{this.state.title}</p>
+                            <div className='title text-center font-bold text-white text-xl'>{this.state.title}</div>
                         </div>
                         {
-                            !this.state.authorized ?
+                            !this.state.user ?
                                 (<>
                                     <div className='signup basis-1/12 text-center text-white'>
                                         <Link to='/signup'><p>Регистрация</p></Link>
@@ -115,7 +88,7 @@ class App extends React.Component {
                                     </div>
                                 </>) :
                                 (<div className='signup basis-1/6 text-center text-white'>
-                                    <Link to='/personal'><p>{this.state.surname + ' ' + this.state.name}</p></Link>
+                                    <Link to='/personal'><p>{this.state.user.surname + ' ' + this.state.user.name}</p></Link>
                                 </div>)
                         }
                     </div>
@@ -148,9 +121,9 @@ class App extends React.Component {
                         exact path='/loaddoc'
                         element={<LoadDoc onTitleChanged={this.handleTitleChange} />} />
                 </Routes>
-                <footer className='bot-bar'>
+                {/* <footer className='bot-bar'>
 
-                </footer>
+                </footer> */}
             </>
         )
     }

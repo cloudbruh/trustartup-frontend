@@ -8,8 +8,8 @@ module.exports = {
       'card': '#e2e8f0',
       'blue': '#348DDB',
       'white': '#ffffff',
-      'indigo-600': '#4f46e5',
-      'indigo-700': '#4338ca',
+      'indigo-600': '#348DDB',
+      'indigo-700': '#0E7CB7',
       'dark': '#374151',
       'light': '#4B5563'
     }

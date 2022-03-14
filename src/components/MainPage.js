@@ -12,11 +12,6 @@ class MainPage extends React.Component {
         isLoading: false,
     };
 
-    constructor(props) {
-        super(props);
-        this.state.token = window.cookie.get('token');
-    }
-
     componentDidMount = () => {
         this.props.onTitleChanged('Лента');
         this.loadData();
@@ -31,7 +26,7 @@ class MainPage extends React.Component {
         });
         fetch(config.url + '/api/feed/api/startupfeed?offset=' + this.state.offset, {
             headers: {
-                'Authorization': `Bearer ${this.state.token}`
+                'Authorization': `Bearer ${window.token}`
             },
         })
             .then(res => res.json())
@@ -49,9 +44,16 @@ class MainPage extends React.Component {
         return (
             <div className='content mt-10 px-4 mx-auto'>
                 <ul>
-                    {this.state.startups.map(startup => {
+                    {this.state.startups.map((startup,index) => {
                         return (
-                            <li key={startup.id}><StartupCard startup={startup} token={this.state.token} /></li>
+                            <li key={startup.id} ><StartupCard startup={startup} onStartupChange={startup => {
+                                this.setState(prevState => {
+                                    prevState.startups[index] = startup
+                                    return {
+                                        startups: prevState.startups,
+                                    }
+                                })
+                            }} /></li>
                         );
                     })}
                 </ul>

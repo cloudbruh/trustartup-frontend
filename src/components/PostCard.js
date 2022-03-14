@@ -7,18 +7,15 @@ class PostCard extends React.Component {
         super(props);
         this.state = {
             post: props.post,
-            token: props.token,
         };
-
-        this.handleLikeClick = this.handleLikeClick.bind(this)
     }
 
-    handleLikeClick(event) {
+    handleLikeClick = () => {
         if (this.state.post.liked) {
             fetch(config.url + '/api/feed/api/post/' + this.state.post.id + "/like", {
                 method: "DELETE",
                 headers: {
-                    'Authorization': `Bearer ${this.state.token}`
+                    'Authorization': `Bearer ${window.token}`
                 },
             })
             .then(res => res.json())
@@ -34,7 +31,7 @@ class PostCard extends React.Component {
             fetch(config.url + '/api/feed/api/post/' + this.state.post.id + "/like", {
                 method: "POST",
                 headers: {
-                    'Authorization': `Bearer ${this.state.token}`
+                    'Authorization': `Bearer ${window.token}`
                 },
             })
             .then(res => res.json())
@@ -53,7 +50,7 @@ class PostCard extends React.Component {
         return (
             <div className="max-w-xl mx-auto my-5 rounded-xl overflow-hidden shadow-dark shadow-sm bg-card">
                 {this.state.post.imageLinks.map(link => (
-                    <img className='w-full' src={"/api/media/api/media/download/" + link}></img>
+                    <img className='w-full' src={"/api/media/api/media/download/" + link} alt="post"></img>
                 ))}
                 <div className='p-2'>
                     <Link to={'/post/' + this.state.post.id}>
