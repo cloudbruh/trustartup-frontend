@@ -39,14 +39,16 @@ class PersonalArea extends React.Component {
             desc: data.description,
             isCreator: data.roles.some((role) => role.type === 'CREATOR')
         })
-        data = await fetch(config.url + '/api/business/get_startups', {
-            headers: {
-                Authorization: 'Bearer ' + token
-            }
-        }).then((res) => res.json())
-        this.setState({
-            startups: data
-        })
+        if (this.state.isCreator) {
+            data = await fetch(config.url + '/api/business/get_startups', {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            }).then((res) => res.json())
+            this.setState({
+                startups: data
+            })
+        }
         data = await fetch(config.url + '/api/business/get_datasets', {
             headers: {
                 Authorization: 'Bearer ' + token
@@ -134,7 +136,7 @@ class PersonalArea extends React.Component {
                 </div>
                 <div>
                     <h2 className='text-center font-bold mt-10 mb-5'>Мои заявки на модерацию:</h2>
-                    {this.state.appls.map(appl => { return <Application appl={appl} /> })}
+                    {this.state.appls.map(appl => { return <Application key={appl.id} appl={appl} /> })}
                 </div>
             </div>
         )

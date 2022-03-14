@@ -83,7 +83,7 @@ class App extends React.Component {
                             !this.state.user ?
                                 (<>
                                     <div className='signup basis-1/12 text-center text-white'>
-                                        <Link to='/signup'><p>Регистрация</p></Link>
+                                        <Link to='/register'><p>Регистрация</p></Link>
                                     </div>
                                     <div className='basis-1/12 text-center text-white'>
                                         <Link to='/login'><p>Вход</p></Link>
