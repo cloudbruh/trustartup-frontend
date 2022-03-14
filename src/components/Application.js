@@ -13,7 +13,8 @@ class Application extends React.Component {
 
     statuses = {
         'GRANTED': 'Одобрено',
-        'PROHIBITED': 'Отклонено'
+        'PROHIBITED': 'Отклонено',
+        'CREATED': 'Ожидает рассмотрения'
     }
 
     render() {
