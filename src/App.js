@@ -1,166 +1,129 @@
 import React from 'react';
-import StartupCard from './StartupCard'
-import Filters from './Filters'
-import Register from './Register'
-import Startup from './Startup'
-import PersonalArea from './PersonalArea'
-import AddStartup from './AddStartup'
-import MainPage from './MainPage'
-import Enter from './Enter'
-import ModeratorPage from './ModeratorPage';
-import LoadDoc from './LoadDoc'
-import {BrowserRouter as Router,
-        Routes,
-        Route,
-        Link} from 'react-router-dom'
-import './cookie'
-import * as c from './constants';
+import Register from './components/Register'
+import Startup from './components/Startup'
+import PersonalArea from './components/PersonalArea'
+import AddStartup from './components/AddStartup'
+import MainPage from './components/MainPage'
+import Login from './components/Login'
+import ModeratorPage from './components/ModeratorPage';
+import RequestRole from './components/RequestRole'
+import {
+    Routes,
+    Route,
+    Link
+} from 'react-router-dom'
+import './helpers/cookie'
+import * as config from './helpers/config';
 
 class App extends React.Component {
 
     state = {
-        title: 'Лента',
-        token: undefined,
+        title: 'Trustartup',
+        user: undefined,
         authorized: false,
         name: undefined,
         surname: undefined
     }
 
-    constructor(props)
-    {
-        super(props)
-        this.handleTitleChanged= this.handleTitleChanged.bind(this)
-        this.handleAuthorization = this.handleAuthorization.bind(this)
-        this.init()
+    constructor(props) {
+        super(props);
+        this.init();
     }
 
-    async init()
-    {
-        if(!window.cookie.get('title'))
-            window.cookie.set('title', 'Лента')
-        let token = window.cookie.get('token')
-        if(!token)
-            return
-        let data, resp
-        try{
-            resp = await fetch(c.addr + '/api/business/current_user', {
-                headers: {
-                    Authorization: 'Bearer ' + token
-                }
-            })
-        }
-        catch(e)
-        {
-            alert(e)
-            return
-        }
-        data = await resp.json()
-        if(!resp.ok)
-        {
-            alert(data.message)
-            return
+    handleTitleChange = (title) => {
+        this.setState({ title: title });
+    }
+
+    async init() {
+        if (!window.token)
+            return;
+
+        let response = await fetch(config.url + '/api/business/current_user', {
+            headers: {
+                Authorization: 'Bearer ' + window.token
+            }
+        })
+        let data = await response.json()
+        if (!response.ok) {
+            alert(data.message);
+            return;
         }
         this.setState({
-            title: window.cookie.get('title'),
-            token: token,
-            name: data.name,
-            surname: data.surname,
-            authorized: true
+            user: data,
         })
     }
 
-    handleTitleChanged(newTitle)
-    {
-        this.setState({title: newTitle})
-        window.cookie.set('title', newTitle)
-    }
-
-    async handleAuthorization(token)
-    {
-        let data, resp
-        try{
-            resp = await fetch(c.addr + '/api/business/current_user', {
-                headers: {
-                    Authorization: 'Bearer ' + token
-                }
-            })
-        }
-        catch(e)
-        {
-            alert(e)
-            return
-        }
-        data = await resp.json()
-        if(!resp.ok)
-        {
-            //alert(data.message)
-            return
-        }
-        window.cookie.set('token', token)
+    handleAuthorization = async (token) => {
+        window.cookie.set('token', token);
+        window.token = token;
+        let response = await fetch(config.url + '/api/business/current_user', {
+            headers: {
+                Authorization: 'Bearer ' + window.token,
+            }
+        })
+        let data = await response.json();
         this.setState({
-            title: this.state.title,
-            token: token,
-            authorized: true,
-            name: data.name,
-            surname: data.surname
+            user: data,
         })
     }
     render() {
         return (
             <>
-                <header className='top-bar bg-blue h-16'>
-                    <div className='flex flex-row'>
+                <header className='top-bar bg-blue '>
+                    <div className='flex flex-row items-center h-16'>
                         <div className='basis-1/6'>
-                        <Link to='/'><p className='pl-10 text-left font-bold text-white text-xl'><span className='inline-block my-4'>Trustartup</span></p></Link>
+                            <Link to='/'><div className='pl-10 text-left font-bold text-white text-xl'>Trustartup</div></Link>
                         </div>
                         <div className='basis-2/3'>
-                            <p className='title text-center font-bold text-white text-2xl'><span className='inline-block my-4'>{this.state.title}</span></p>
+                            <div className='title text-center font-bold text-white text-xl'>{this.state.title}</div>
                         </div>
                         {
-                            !this.state.authorized ? 
-                            (<>
-                                <div className='signup mt-4 basis-1/12 text-center text-white'>
-                                    <Link to='/signup'><p>Регистрация</p></Link>
-                                </div>
-                                <div className='mt-4 basis-1/12 text-center text-white'>
-                                    <Link to='/login'><p>Вход</p></Link>
-                                </div>
-                            </>) : 
-                            (<div className='signup mt-4 basis-1/6 text-center text-white'>
-                            <Link to='/personal'><p>{this.state.surname + ' ' + this.state.name}</p></Link>
-                        </div>)
+                            !this.state.user ?
+                                (<>
+                                    <div className='signup basis-1/12 text-center text-white'>
+                                        <Link to='/signup'><p>Регистрация</p></Link>
+                                    </div>
+                                    <div className='basis-1/12 text-center text-white'>
+                                        <Link to='/login'><p>Вход</p></Link>
+                                    </div>
+                                </>) :
+                                (<div className='signup basis-1/6 text-center text-white'>
+                                    <Link to='/personal'><p>{this.state.user.surname + ' ' + this.state.user.name}</p></Link>
+                                </div>)
                         }
                     </div>
                 </header>
                 <Routes>
-                    <Route 
-                        exact path='/'
-                        element={<MainPage onTitleChanged={this.handleTitleChanged}/>} />
-                    <Route 
-                        exact path='/login'
-                        element={<Enter onTitleChanged={this.handleTitleChanged} onAuthorized={this.handleAuthorization}/>} />
                     <Route
-                        exact path='/signup'
-                        element={<Register onTitleChanged={this.handleTitleChanged} onAuthorized={this.handleAuthorization}/>}/>
+                        exact path='/'
+                        element={<MainPage onTitleChanged={this.handleTitleChange} />}
+                    />
+                    <Route
+                        exact path='/login'
+                        element={<Login onAuthorized={this.handleAuthorization} onTitleChanged={this.handleTitleChange} />}
+                    />
+                    <Route
+                        exact path='/register'
+                        element={<Register onAuthorized={this.handleAuthorization} onTitleChanged={this.handleTitleChange} />} />
                     <Route
                         exact path='/startup/:id'
-                        element={<Startup onTitleChanged={this.handleTitleChanged}/>}/>
+                        element={<Startup onTitleChanged={this.handleTitleChange} />} />
                     <Route
-                        exact path='/addstartup'
-                        element={<AddStartup onTitleChanged={this.handleTitleChanged}/>}/>
+                        exact path='/add_startup'
+                        element={<AddStartup onTitleChanged={this.handleTitleChange} />} />
                     <Route
                         exact path='/personal'
-                        element={<PersonalArea onTitleChanged={this.handleTitleChanged}/>}/>
+                        element={<PersonalArea onTitleChanged={this.handleTitleChange} />} />
                     <Route
                         exact path='/moderator'
-                        element={<ModeratorPage onTitleChanged={this.handleTitleChanged}/>}/>
+                        element={<ModeratorPage onTitleChanged={this.handleTitleChange} />} />
                     <Route
-                        exact path='/loaddoc'
-                        element={<LoadDoc onTitleChanged={this.handleTitleChanged}/>}/>
+                        exact path='/request_role'
+                        element={<RequestRole onTitleChanged={this.handleTitleChange} />} />
                 </Routes>
-                <footer className='bot-bar'>
+                {/* <footer className='bot-bar'>
 
-                </footer>
+                </footer> */}
             </>
         )
     }
