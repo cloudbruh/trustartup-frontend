@@ -10,7 +10,7 @@ class PersonalArea extends React.Component {
         desc: undefined,
         isCreator: false,
         updateDesc: false,
-        companies: []
+        startups: []
     }
 
     constructor(props) {
@@ -36,6 +36,14 @@ class PersonalArea extends React.Component {
             surname: data.surname,
             desc: data.description,
             isCreator: data.roles.some((role) => role.type === 'CREATOR')
+        })
+        data = await fetch(config.url + '/api/business/get_startups', {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }).then((res) => res.json())
+        this.setState({
+            startups: data
         })
     }
 
