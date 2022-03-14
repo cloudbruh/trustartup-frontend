@@ -69,10 +69,10 @@ class PersonalArea extends React.Component {
                     </div>
                 </div>
                 <div className='flex flex-row'>
-                    <div className='companies-list basis-1/4 ml-40 mx-auto'>
-                        <p className='font-bold'>Мои компании:</p>
+                    <div className='basis-1/4 ml-40 mx-auto'>
+                        <p className='font-bold'>Мои стартапы:</p>
                         <ul className='list-disc'>
-                            {this.state.companies.map(startup => { return <li><Link to={'/startup/' + startup.id}>{startup.name}</Link></li> })}
+                            {this.state.startups.map(startup => { return <li key={startup.id}><Link to={'/startup/' + startup.id}>{startup.name}</Link></li> })}
                         </ul>
                     </div>
                     <div className='personal-data basis-1/3 mx-auto mt-10'>
@@ -114,7 +114,7 @@ class PersonalArea extends React.Component {
                     <h2 className='font-bold mx-auto'>О себе:</h2>
                     {!this.state.updateDesc ?
                         <div>
-                            <p>{this.state.desc}</p>
+                            <div>{this.state.desc}</div>
                             <button className='mx-auto mt-20 py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700' onClick={this.onChangeDescClick}>Изменить</button>
                         </div> :
                         <div>

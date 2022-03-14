@@ -292,7 +292,7 @@ class Startup extends React.Component {
                             </div>
                             <div className="ml-2">из {this.state.startup.fundsGoal}</div>
                         </div>
-                        <p>{this.state.startup.descriptionShort}</p>
+                        <p>{this.state.startup.description}</p>
                         <div className="mt-2 text-center">
                             <button type='button' className="p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white" onClick={this.handleLikeClick}>{this.state.startup.likes} лайков</button>
                             <button className="p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white" onClick={this.handleFollowClick}>{this.state.startup.follows} подписок</button>
