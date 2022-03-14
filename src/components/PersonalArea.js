@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as config from '../helpers/config';
+import Application from './Application';
 
 class PersonalArea extends React.Component {
 
@@ -10,7 +11,8 @@ class PersonalArea extends React.Component {
         desc: undefined,
         isCreator: false,
         updateDesc: false,
-        startups: []
+        startups: [],
+        appls: []
     }
 
     constructor(props) {
@@ -44,6 +46,14 @@ class PersonalArea extends React.Component {
         }).then((res) => res.json())
         this.setState({
             startups: data
+        })
+        data = await fetch(config.url + '/api/business/get_datasets', {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }).then((res) => res.json())
+        this.setState({
+            appls: data
         })
     }
 
@@ -121,6 +131,10 @@ class PersonalArea extends React.Component {
                             <textarea cols='40' rows='15' id='new-user-desc' className='border border-solid rounded-sm w-80 h-20' />
                             <button className='text-center py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700' onClick={this.onSaveClick}>Сохранить</button>
                         </div>}
+                </div>
+                <div>
+                    <h2 className='text-center font-bold mt-10 mb-5'>Мои заявки на модерацию:</h2>
+                    {this.state.appls.map(appl => { return <Application appl={appl} /> })}
                 </div>
             </div>
         )

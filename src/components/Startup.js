@@ -342,6 +342,9 @@ class Startup extends React.Component {
                             {this.state.user_id === this.state.startup.userId && this.state.startup.status === 'Created' &&
                                 <Link to={'/startup/' + this.state.startup.id + '/request_moderation'}><div className="inline-block p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white">Отправить на модерацию</div></Link>
                             }
+                            {this.state.user_id === this.state.startup.userId && this.state.startup.status === 'Published' &&
+                                <div className="inline-block p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white">Заявки на вакансии</div>
+                            }
                         </div>
                         {this.cardBottom()}
                     </div>
