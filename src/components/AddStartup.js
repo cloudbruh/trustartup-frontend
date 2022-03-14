@@ -66,15 +66,10 @@ class AddStartup extends React.Component {
                 })
         }
         catch (e) {
-            alert(e)
+            console.log(e)
         }
-        if (!req.ok)
-            req.text().then(function (text) {
-                alert(text)
-            });
-        else {
-            alert('Стартап успешно создан!')
-        }
+        if (req.ok)
+            alert('Стартап успешно создан!');
         event.preventDefault();
     }
 

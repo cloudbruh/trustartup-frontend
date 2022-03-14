@@ -47,7 +47,6 @@ class App extends React.Component {
         })
         let data = await response.json()
         if (!response.ok) {
-            alert(data.message);
             return;
         }
         this.setState({

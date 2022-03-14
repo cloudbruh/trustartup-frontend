@@ -16,7 +16,7 @@ class StartupCard extends React.Component {
                     this.props.onStartupChange({ ...this.props.startup, likes: result.likes, liked: result.liked });
                 })
                 .catch((error) => {
-                    alert(error);
+                    console.log(error);
                 });
         } else {
             fetch(config.url + '/api/feed/api/startup/' + this.props.startup.id + "/like", {
@@ -30,7 +30,7 @@ class StartupCard extends React.Component {
                     this.props.onStartupChange({ ...this.props.startup, likes: result.likes, liked: result.liked });
                 })
                 .catch((error) => {
-                    alert(error);
+                    console.log(error);
                 });
         }
     }
@@ -48,7 +48,7 @@ class StartupCard extends React.Component {
                     this.props.onStartupChange({ ...this.props.startup, follows: result.follows, followed: result.followed });
                 })
                 .catch((error) => {
-                    alert(error);
+                    console.log(error);
                 });
         } else {
             fetch(config.url + '/api/feed/api/startup/' + this.props.startup.id + "/follow", {
@@ -62,7 +62,7 @@ class StartupCard extends React.Component {
                     this.props.onStartupChange({ ...this.props.startup, follows: result.follows, followed: result.followed });
                 })
                 .catch((error) => {
-                    alert(error);
+                    console.log(error);
                 });
         }
     }

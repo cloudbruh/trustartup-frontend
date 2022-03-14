@@ -25,7 +25,7 @@ class PostCard extends React.Component {
                 });
             })
             .catch((error) => {
-                alert(error);
+                console.log(error);
             });
         } else {
             fetch(config.url + '/api/feed/api/post/' + this.state.post.id + "/like", {
@@ -41,7 +41,7 @@ class PostCard extends React.Component {
                 });
             })
             .catch((error) => {
-                alert(error);
+                console.log(error);
             });
         }
     }

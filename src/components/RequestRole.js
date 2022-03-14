@@ -42,16 +42,11 @@ class RequestRole extends React.Component {
                 })
         }
         catch (e) {
-            alert(e)
+            console.log(e)
             return
         }
-        if (!req.ok)
-            req.text().then(function (text) {
-                alert(text)
-            });
-        else {
+        if (req.ok)
             alert('Заявка подана!')
-        }
         event.preventDefault();
     }
 

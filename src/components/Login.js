@@ -52,7 +52,7 @@ class Login extends React.Component {
                 </div>
                 <div className='mb-7'>
                     <label htmlFor='login-pass' className='font-bold mr-2 mb-2 block'>Пароль:</label>
-                    <input type='text' onChange={(event) => this.setState({ pass: event.target.value })} id='login-pass' className='w-full border border-solid rounded-sm' />
+                    <input type='password' onChange={(event) => this.setState({ pass: event.target.value })} id='login-pass' className='w-full border border-solid rounded-sm' />
                 </div>
                 <button onClick={this.handleSubmit} className='enter-button py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>Вход</button>
             </div>

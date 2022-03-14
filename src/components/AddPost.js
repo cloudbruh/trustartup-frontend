@@ -32,12 +32,8 @@ class AddPost extends React.Component {
             })
 
         if (!response.ok)
-            response.text().then(function (error) {
-                alert(error)
-            });
-        else {
             alert('Пост успешно создан!');
-        }
+
         event.preventDefault();
     }
 

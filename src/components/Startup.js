@@ -118,7 +118,7 @@ class Startup extends React.Component {
                     });
                 })
                 .catch((error) => {
-                    alert(error);
+                    console.log(error);
                 });
         } else {
             fetch(config.url + '/api/feed/api/startup/' + this.props.params.id + "/like", {
@@ -134,7 +134,7 @@ class Startup extends React.Component {
                     });
                 })
                 .catch((error) => {
-                    alert(error);
+                    console.log(error);
                 });
         }
     }
@@ -154,7 +154,7 @@ class Startup extends React.Component {
                     });
                 })
                 .catch((error) => {
-                    alert(error);
+                    console.log(error);
                 });
         } else {
             fetch(config.url + '/api/feed/api/startup/' + this.props.params.id + "/follow", {
@@ -170,7 +170,7 @@ class Startup extends React.Component {
                     });
                 })
                 .catch((error) => {
-                    alert(error);
+                    console.log(error);
                 });
         }
     }
@@ -202,12 +202,12 @@ class Startup extends React.Component {
                 })
         }
         catch (e) {
-            alert(e)
+            console.log(e)
             return
         }
         if (!req.ok)
             req.text().then(function (text) {
-                alert(text)
+                console.log(text)
             });
         else {
             let data = await req.json()
@@ -229,12 +229,12 @@ class Startup extends React.Component {
                 })
         }
         catch (e) {
-            alert(e)
+            console.log(e)
             return
         }
         if (!req.ok)
             req.text().then(function (text) {
-                alert(text)
+                console.log(text)
             });
         else {
             alert('Заявка подана!')
@@ -284,7 +284,7 @@ class Startup extends React.Component {
                 });
             })
             .catch((error) => {
-                alert(error);
+                console.log(error);
             });
     }
 
@@ -322,7 +322,7 @@ class Startup extends React.Component {
                             }
                             <div className="ml-2">из {this.state.startup.fundsGoal}</div>
                         </div>
-                        <p>{this.state.startup.description}</p>
+                        <p className='overflow-hidden break-words'>{this.state.startup.description}</p>
                         <div className="mt-2 text-center">
                             {this.state.startup.status === 'Published' &&
                                 <button className={"p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white " + (this.state.startup.liked ? 'bg-blue text-white' : '')} onClick={this.handleLikeClick}>{this.state.startup.likes} лайков</button>

@@ -29,13 +29,8 @@ class RequestModeration extends React.Component {
                 body: fd
             })
 
-        if (!response.ok)
-            response.text().then(function (error) {
-                alert(error)
-            });
-        else {
+        if (response.ok)
             alert('Запрос успешно создан!');
-        }
         event.preventDefault();
     }
 
