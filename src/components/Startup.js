@@ -14,6 +14,8 @@ class Startup extends React.Component {
         },
         posts: [],
         comments: [],
+        applications: [],
+        rewards: [],
         commentDraft: "",
         funds: 0,
         isApply: false,
@@ -52,6 +54,20 @@ class Startup extends React.Component {
                         startup: result
                     });
                     this.props.onTitleChanged(this.state.startup.name);
+                }
+            });
+
+        fetch(config.url + '/api/business/startup_applications?startup_id=' + this.props.params.id, {
+            headers: {
+                'Authorization': `Bearer ${window.token}`
+            },
+        })
+            .then(res => res.json())
+            .then((result) => {
+                if (!result.error) {
+                    this.setState({
+                        application: result
+                    });
                 }
             });
 
@@ -340,6 +356,23 @@ class Startup extends React.Component {
                     <button className='mx-auto my-5 p-2 block rounded-xl text-xl text-center bg-gray-200 shadow-dark shadow-sm hover:bg-blue hover:text-white'
                         onClick={this.postComment}>Отправить</button>
                     {this.state.comments.map(comment => { return <CommentCard key={comment.id} comment={comment} /> })}
+                </div>
+                <div className='news mt-5'>
+                    <h2 className='font-bold text-2xl text-center'>Заявки на работу</h2>
+                    {this.state.applications.map(application => {
+                        return (
+                            <div key={application.id} className='card bg-card border-solid mx-auto relative w-1/2 h-auto px-2 py-5 mb-20'>
+                                <div className='text-center'>
+                                    <p>Id: {application.id}</p>
+                                </div>
+                                {this.state.user_id === this.state.startup.userId &&
+                                    <div className='text-center'>
+                                        <button className='mt-10 mb-5 py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>Одобрить</button>
+                                    </div>
+                                }
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
         )
