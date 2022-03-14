@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import * as c from './constants';
+import * as config from '../helpers/config';
 
 class PersonalArea extends React.Component {
 
@@ -21,11 +21,14 @@ class PersonalArea extends React.Component {
         this.onSaveClick = this.onSaveClick.bind(this)
     }
 
+    componentDidMount = () => {
+        this.props.onTitleChanged('Личный кабинет');
+    }
+
     async init()
     {
-        this.props.onTitleChanged('Личный кабинет')
         let token = window.cookie.get('token')
-        let data = await fetch(c.addr + '/api/business/current_user', {
+        let data = await fetch(config.url + '/api/business/current_user', {
             headers: {
                 Authorization: 'Bearer ' + token
             }

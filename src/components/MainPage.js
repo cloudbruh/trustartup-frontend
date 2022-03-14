@@ -1,10 +1,7 @@
 import React from 'react';
 import StartupCard from './StartupCard'
 import Filters from './Filters'
-import Register from './Register'
-import Startup from './Startup'
-import PersonalArea from './PersonalArea'
-import * as c from './constants';
+import * as config from '../helpers/config';
 
 class MainPage extends React.Component {
 
@@ -15,41 +12,37 @@ class MainPage extends React.Component {
         isLoading: false,
     };
 
-    constructor(props)
-    {
-        super(props)
-        props.onTitleChanged('Лента')
-        this.state.token = window.cookie.get('token')
-
-        this.loadData = this.loadData.bind(this);
+    constructor(props) {
+        super(props);
+        this.state.token = window.cookie.get('token');
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
+        this.props.onTitleChanged('Лента');
         this.loadData();
     }
 
-    loadData() {
-        if (this.state.isLoading) {
+    loadData = () => {
+        if (this.state.isLoading)
             return;
-        }
 
         this.setState({
             isLoading: true
         });
-        fetch(c.addr + '/api/feed/api/startupfeed?offset=' + this.state.offset, {
+        fetch(config.url + '/api/feed/api/startupfeed?offset=' + this.state.offset, {
             headers: {
                 'Authorization': `Bearer ${this.state.token}`
             },
         })
-        .then(res => res.json())
-        .then((result) => {
-            this.setState({
-                startups: this.state.startups.concat(result),
-                canLoadMore: result.length > 0,
-                offset: this.state.offset + result.length,
-                isLoading: false,
+            .then(res => res.json())
+            .then((result) => {
+                this.setState({
+                    startups: this.state.startups.concat(result),
+                    canLoadMore: result.length > 0,
+                    offset: this.state.offset + result.length,
+                    isLoading: false,
+                });
             });
-        });
     }
 
     render() {

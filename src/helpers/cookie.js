@@ -11,7 +11,7 @@
     p.set = function (name, value, options) {
         var opt = {
             path: "/",
-            "max-age": 604800,
+            "max-age": 604800, //живет неделю
             // при необходимости добавьте другие значения по умолчанию
         };
 
@@ -41,8 +41,8 @@
         var matches = document.cookie.match(
             new RegExp(
                 "(?:^|; )" +
-                    name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
-                    "=([^;]*)"
+                name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
+                "=([^;]*)"
             )
         );
         return matches ? decodeURIComponent(matches[1]) : undefined;

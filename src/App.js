@@ -1,67 +1,64 @@
 import React from 'react';
-import StartupCard from './StartupCard'
-import Filters from './Filters'
-import Register from './Register'
-import Startup from './Startup'
-import PersonalArea from './PersonalArea'
-import AddStartup from './AddStartup'
-import MainPage from './MainPage'
-import Enter from './Enter'
-import ModeratorPage from './ModeratorPage';
-import LoadDoc from './LoadDoc'
-import {BrowserRouter as Router,
-        Routes,
-        Route,
-        Link} from 'react-router-dom'
-import './cookie'
-import * as c from './constants';
+import StartupCard from './components/StartupCard'
+//import Filters from './components/Filters'
+import Register from './components/Register'
+import Startup from './components/Startup'
+import PersonalArea from './components/PersonalArea'
+import AddStartup from './components/AddStartup'
+import MainPage from './components/MainPage'
+import Login from './components/Login'
+import ModeratorPage from './components/ModeratorPage';
+import LoadDoc from './components/LoadDoc'
+import {
+    Routes,
+    Route,
+    Link
+} from 'react-router-dom'
+import './helpers/cookie'
+import * as config from './helpers/config';
 
 class App extends React.Component {
 
     state = {
-        title: 'Лента',
+        title: 'Trustartup',
         token: undefined,
         authorized: false,
         name: undefined,
         surname: undefined
     }
 
-    constructor(props)
-    {
+    constructor(props) {
         super(props)
-        this.handleTitleChanged= this.handleTitleChanged.bind(this)
         this.handleAuthorization = this.handleAuthorization.bind(this)
         this.init()
     }
 
-    async init()
-    {
-        if(!window.cookie.get('title'))
-            window.cookie.set('title', 'Лента')
+    handleTitleChange = (title) => {
+        this.setState({ title: title });
+    }
+
+    async init() {
         let token = window.cookie.get('token')
-        if(!token)
+        if (!token)
             return
         let data, resp
-        try{
-            resp = await fetch(c.addr + '/api/business/current_user', {
+        try {
+            resp = await fetch(config.url + '/api/business/current_user', {
                 headers: {
                     Authorization: 'Bearer ' + token
                 }
             })
         }
-        catch(e)
-        {
+        catch (e) {
             alert(e)
             return
         }
         data = await resp.json()
-        if(!resp.ok)
-        {
+        if (!resp.ok) {
             alert(data.message)
             return
         }
         this.setState({
-            title: window.cookie.get('title'),
             token: token,
             name: data.name,
             surname: data.surname,
@@ -69,30 +66,21 @@ class App extends React.Component {
         })
     }
 
-    handleTitleChanged(newTitle)
-    {
-        this.setState({title: newTitle})
-        window.cookie.set('title', newTitle)
-    }
-
-    async handleAuthorization(token)
-    {
+    async handleAuthorization(token) {
         let data, resp
-        try{
-            resp = await fetch(c.addr + '/api/business/current_user', {
+        try {
+            resp = await fetch(config.url + '/api/business/current_user', {
                 headers: {
                     Authorization: 'Bearer ' + token
                 }
             })
         }
-        catch(e)
-        {
+        catch (e) {
             alert(e)
             return
         }
         data = await resp.json()
-        if(!resp.ok)
-        {
+        if (!resp.ok) {
             //alert(data.message)
             return
         }
@@ -108,55 +96,57 @@ class App extends React.Component {
     render() {
         return (
             <>
-                <header className='top-bar bg-blue h-16'>
-                    <div className='flex flex-row'>
+                <header className='top-bar bg-blue '>
+                    <div className='flex flex-row items-center h-16'>
                         <div className='basis-1/6'>
-                        <Link to='/'><p className='pl-10 text-left font-bold text-white text-xl'><span className='inline-block my-4'>Trustartup</span></p></Link>
+                            <Link to='/'><p className='pl-10 text-left font-bold text-white text-xl'>Trustartup</p></Link>
                         </div>
                         <div className='basis-2/3'>
-                            <p className='title text-center font-bold text-white text-2xl'><span className='inline-block my-4'>{this.state.title}</span></p>
+                            <p className='title text-center font-bold text-white text-xl'>{this.state.title}</p>
                         </div>
                         {
-                            !this.state.authorized ? 
-                            (<>
-                                <div className='signup mt-4 basis-1/12 text-center text-white'>
-                                    <Link to='/signup'><p>Регистрация</p></Link>
-                                </div>
-                                <div className='mt-4 basis-1/12 text-center text-white'>
-                                    <Link to='/login'><p>Вход</p></Link>
-                                </div>
-                            </>) : 
-                            (<div className='signup mt-4 basis-1/6 text-center text-white'>
-                            <Link to='/personal'><p>{this.state.surname + ' ' + this.state.name}</p></Link>
-                        </div>)
+                            !this.state.authorized ?
+                                (<>
+                                    <div className='signup basis-1/12 text-center text-white'>
+                                        <Link to='/signup'><p>Регистрация</p></Link>
+                                    </div>
+                                    <div className='basis-1/12 text-center text-white'>
+                                        <Link to='/login'><p>Вход</p></Link>
+                                    </div>
+                                </>) :
+                                (<div className='signup basis-1/6 text-center text-white'>
+                                    <Link to='/personal'><p>{this.state.surname + ' ' + this.state.name}</p></Link>
+                                </div>)
                         }
                     </div>
                 </header>
                 <Routes>
-                    <Route 
+                    <Route
                         exact path='/'
-                        element={<MainPage onTitleChanged={this.handleTitleChanged}/>} />
-                    <Route 
+                        element={<MainPage onTitleChanged={this.handleTitleChange} />}
+                    />
+                    <Route
                         exact path='/login'
-                        element={<Enter onTitleChanged={this.handleTitleChanged} onAuthorized={this.handleAuthorization}/>} />
+                        element={<Login onAuthorized={this.handleAuthorization} onTitleChanged={this.handleTitleChange} />}
+                    />
                     <Route
                         exact path='/signup'
-                        element={<Register onTitleChanged={this.handleTitleChanged} onAuthorized={this.handleAuthorization}/>}/>
+                        element={<Register onAuthorized={this.handleAuthorization} onTitleChanged={this.handleTitleChange} />} />
                     <Route
                         exact path='/startup/:id'
-                        element={<Startup onTitleChanged={this.handleTitleChanged}/>}/>
+                        element={<Startup onTitleChanged={this.handleTitleChange} />} />
                     <Route
                         exact path='/addstartup'
-                        element={<AddStartup onTitleChanged={this.handleTitleChanged}/>}/>
+                        element={<AddStartup onTitleChanged={this.handleTitleChange} />} />
                     <Route
                         exact path='/personal'
-                        element={<PersonalArea onTitleChanged={this.handleTitleChanged}/>}/>
+                        element={<PersonalArea onTitleChanged={this.handleTitleChange} />} />
                     <Route
                         exact path='/moderator'
-                        element={<ModeratorPage onTitleChanged={this.handleTitleChanged}/>}/>
+                        element={<ModeratorPage onTitleChanged={this.handleTitleChange} />} />
                     <Route
                         exact path='/loaddoc'
-                        element={<LoadDoc onTitleChanged={this.handleTitleChanged}/>}/>
+                        element={<LoadDoc onTitleChanged={this.handleTitleChange} />} />
                 </Routes>
                 <footer className='bot-bar'>
 

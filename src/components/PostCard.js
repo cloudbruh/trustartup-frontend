@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import * as c from './constants'
+import * as config from '../helpers/config'
 
 class PostCard extends React.Component {
     constructor(props) {
@@ -15,7 +15,7 @@ class PostCard extends React.Component {
 
     handleLikeClick(event) {
         if (this.state.post.liked) {
-            fetch(c.addr + '/api/feed/api/post/' + this.state.post.id + "/like", {
+            fetch(config.url + '/api/feed/api/post/' + this.state.post.id + "/like", {
                 method: "DELETE",
                 headers: {
                     'Authorization': `Bearer ${this.state.token}`
@@ -31,7 +31,7 @@ class PostCard extends React.Component {
                 alert(error);
             });
         } else {
-            fetch(c.addr + '/api/feed/api/post/' + this.state.post.id + "/like", {
+            fetch(config.url + '/api/feed/api/post/' + this.state.post.id + "/like", {
                 method: "POST",
                 headers: {
                     'Authorization': `Bearer ${this.state.token}`
