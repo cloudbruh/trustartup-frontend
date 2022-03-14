@@ -50,7 +50,7 @@ class PostCard extends React.Component {
         return (
             <div className="max-w-xl mx-auto my-5 rounded-xl overflow-hidden shadow-dark shadow-sm bg-card">
                 {this.state.post.imageLinks.map(link => (
-                    <img className='w-full' src={"/api/media/api/media/download/" + link} alt="post"></img>
+                    <img key={link} className='w-full' src={"/api/media/api/media/download/" + link} alt="post"></img>
                 ))}
                 <div className='p-2'>
                     <Link to={'/post/' + this.state.post.id}>

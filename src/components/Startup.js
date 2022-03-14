@@ -169,7 +169,7 @@ class Startup extends React.Component {
                 {
                     method: 'POST',
                     headers: {
-                        Authorization: 'Bearer ' + window.cookie.get('token')
+                        Authorization: 'Bearer ' + window.token
                     }
                 })
         }
@@ -196,7 +196,7 @@ class Startup extends React.Component {
                 {
                     method: 'POST',
                     headers: {
-                        Authorization: 'Bearer ' + window.cookie.get('token')
+                        Authorization: 'Bearer ' + window.token
                     }, body: fd
                 })
         }
@@ -233,7 +233,7 @@ class Startup extends React.Component {
         })
     }
 
-    postComment(event) {
+    postComment = () => {
         if (this.state.commentDraft === '') {
             return;
         }
@@ -304,14 +304,14 @@ class Startup extends React.Component {
                 </div>
                 <div className='news mt-5'>
                     <h2 className='font-bold text-2xl text-center'>Новости</h2>
-                    {this.state.posts.map(post => { return <PostCard post={post} token={window.token} /> })}
+                    {this.state.posts.map(post => { return <PostCard key={post.id} post={post} /> })}
                 </div>
                 <div className='comments mt-10'>
                     <h2 className='font-bold text-2xl text-center'>Комментарии</h2>
                     <textarea onChange={this.handleCommentInput} className='w-full max-w-xl mx-auto my-5 p-1 h-40 rounded-xl block overflow-hidden shadow-dark shadow-sm' placeholder='Напишите ваш комментарий'></textarea>
                     <button className='mx-auto my-5 p-2 block rounded-xl text-xl text-center bg-gray-200 shadow-dark shadow-sm hover:bg-blue hover:text-white'
                         onClick={this.postComment}>Отправить</button>
-                    {this.state.comments.map(comment => { return <CommentCard comment={comment} /> })}
+                    {this.state.comments.map(comment => { return <CommentCard key={comment.id} comment={comment} /> })}
                 </div>
             </div>
         )
