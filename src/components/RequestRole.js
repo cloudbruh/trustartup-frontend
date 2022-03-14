@@ -1,5 +1,4 @@
 import React from 'react';
-import StartupCard from './StartupCard'
 import FormData from 'form-data';
 import * as config from '../helpers/config';
 

@@ -18,7 +18,7 @@ class Login extends React.Component {
 
     handleSubmit = async (event) => {
         event.preventDefault();
-        let response = await fetch(config.url + '/api/auth/login?' + 'email=' + this.state.email + '&password=' + this.state.pass,
+        let response = await fetch(config.url + '/api/auth/login?email=' + this.state.email + '&password=' + this.state.pass,
             {
                 method: 'POST',
                 headers: {

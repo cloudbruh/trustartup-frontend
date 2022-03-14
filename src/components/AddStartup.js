@@ -1,6 +1,4 @@
 import React from 'react';
-import StartupCard from './StartupCard'
-import Filters from './Filters'
 import * as config from '../helpers/config'
 
 class AddStartup extends React.Component {

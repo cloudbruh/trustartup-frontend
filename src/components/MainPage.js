@@ -1,6 +1,6 @@
 import React from 'react';
 import StartupCard from './StartupCard'
-import Filters from './Filters'
+//import Filters from './Filters'
 import * as config from '../helpers/config';
 
 class MainPage extends React.Component {
