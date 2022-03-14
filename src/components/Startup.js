@@ -317,7 +317,7 @@ class Startup extends React.Component {
                         <div className="flex my-1">
                             {this.state.startup.status === 'Published' &&
                                 <div className="flex-1 h-6 bg-dark rounded-full">
-                                    <div className="h-6 px-2 bg-blue rounded-full text-white text-right" style={{ width: this.state.startup.totalFunded * 100 / this.state.startup.fundsGoal + "%" }}>{this.state.startup.totalFunded}</div>
+                                    <div className="h-6 px-2 bg-blue rounded-full text-white text-right" style={{ width: Math.min(this.state.startup.totalFunded * 100 / this.state.startup.fundsGoal, 100) + "%" }}>{this.state.startup.totalFunded}</div>
                                 </div>
                             }
                             <div className="ml-2">из {this.state.startup.fundsGoal}</div>

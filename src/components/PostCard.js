@@ -53,9 +53,7 @@ class PostCard extends React.Component {
                     <img key={link} className='w-full' src={config.url + "/api/media/api/media/download/" + link} alt="post"></img>
                 ))}
                 <div className='p-2'>
-                    <Link to={'/post/' + this.state.post.id}>
-                        <div className="font-medium text-lg">{this.state.post.header}</div>
-                    </Link>
+                    <div className="font-medium text-lg">{this.state.post.header}</div>
                     <div className="text-light">{this.state.post.userName} {this.state.post.userSurname}</div>
                     <p>{this.state.post.text}</p>
                     <div className="mt-2">

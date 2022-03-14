@@ -21,8 +21,7 @@ class ModeratorPage extends React.Component {
         });
     }
 
-    async handleAccept(id, cmnt)
-    {
+    async handleAccept(id, cmnt) {
         let response = await fetch(config.url + '/api/business/moderate?dataset_id=' + id + '&status=GRANTED&comment=' + cmnt,
             {
                 method: 'POST',
@@ -54,9 +53,8 @@ class ModeratorPage extends React.Component {
         }
     }
 
-    async handleDecline(id, cmnt)
-    {
-        let response = await fetch(config.url + '/api/business/moderate?dataset_id=' + id + '&status=PROHIBITED&comment=' + cmnt ,
+    async handleDecline(id, cmnt) {
+        let response = await fetch(config.url + '/api/business/moderate?dataset_id=' + id + '&status=PROHIBITED&comment=' + cmnt,
             {
                 method: 'POST',
                 headers: {
@@ -95,7 +93,10 @@ class ModeratorPage extends React.Component {
                     <div key={dataset.id} className='card bg-card border-solid mx-auto relative w-1/2 h-auto px-2 py-5 mb-20'>
                         <div className='text-center'>
                             <p>Id: {dataset.id}</p>
-                            <p>Name: {dataset.name}</p>
+                            <p>Type: {dataset.moderatable_type}</p>
+                            <p>Content: {dataset.content}</p>
+                            <p>Name: {dataset.moderatable_object.name}</p>
+                            <p>description: {dataset.moderatable_object.description}</p>
                         </div>
                         <div className='img'>
                             <h3 className='text-center font-bold'>Документы</h3>

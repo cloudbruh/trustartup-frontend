@@ -36,6 +36,11 @@ class App extends React.Component {
         this.setState({ title: title });
     }
 
+    handleExit = () => {
+        window.cookie.remove('token');
+        document.location.reload();
+    }
+
     async init() {
         if (!window.token)
             return;
@@ -88,9 +93,14 @@ class App extends React.Component {
                                         <Link to='/login'><p>Вход</p></Link>
                                     </div>
                                 </>) :
-                                (<div className='signup basis-1/6 text-center text-white'>
-                                    <Link to='/personal'><p>{this.state.user.surname + ' ' + this.state.user.name}</p></Link>
-                                </div>)
+                                (<>
+                                    <div className='signup basis-1/12 text-center text-white'>
+                                        <Link to='/personal'><p>{this.state.user.surname + ' ' + this.state.user.name}</p></Link>
+                                    </div>
+                                    <div className='basis-1/12 text-center text-white'>
+                                        <button onClick={this.handleExit}>Выход</button>
+                                    </div>
+                                </>)
                         }
                     </div>
                 </header>

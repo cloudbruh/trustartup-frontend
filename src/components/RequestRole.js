@@ -42,11 +42,16 @@ class RequestRole extends React.Component {
                 })
         }
         catch (e) {
-            console.log(e)
+            alert(e)
             return
         }
-        if (req.ok)
+        if (!req.ok)
+            req.text().then(function (text) {
+                alert(text);
+            });
+        else {
             alert('Заявка подана!')
+        }
         event.preventDefault();
     }
 
@@ -74,7 +79,6 @@ class RequestRole extends React.Component {
                         <select id='role' onChange={this.handleChangeRole}>
                             <option value='APPLICANT'>Соискатель</option>
                             <option value='CREATOR'>Стартапер</option>
-                            <option value='MODERATOR'>Модератор</option>
                         </select>
                     </div>
                     <div className='desc mx-auto text-center mb-7'>

@@ -86,7 +86,7 @@ class StartupCard extends React.Component {
                     <div className="text-light">{this.props.startup.userName} {this.props.startup.userSurname}</div>
                     <div className="flex my-1">
                         <div className="flex-1 h-6 bg-dark rounded">
-                            <div className="h-6 px-2 bg-blue rounded text-white text-right" style={{ width: this.props.startup.totalFunded * 100 / this.props.startup.fundsGoal + "%" }}>{this.props.startup.totalFunded}</div>
+                            <div className="h-6 px-2 bg-blue rounded text-white text-right" style={{ width: Math.min(this.props.startup.totalFunded * 100 / this.props.startup.fundsGoal, 100) + "%" }}>{this.props.startup.totalFunded}</div>
                         </div>
                         <div className="ml-2">из {this.props.startup.fundsGoal}</div>
                     </div>
