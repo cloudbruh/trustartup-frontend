@@ -3,7 +3,7 @@ import StartupCard from './StartupCard'
 import FormData from 'form-data';
 import * as config from '../helpers/config';
 
-class LoadDoc extends React.Component {
+class RequestRole extends React.Component {
 
     state = {
     }
@@ -101,4 +101,4 @@ class LoadDoc extends React.Component {
     }
 }
 
-export default LoadDoc;
+export default RequestRole;

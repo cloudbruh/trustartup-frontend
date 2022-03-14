@@ -6,7 +6,7 @@ import AddStartup from './components/AddStartup'
 import MainPage from './components/MainPage'
 import Login from './components/Login'
 import ModeratorPage from './components/ModeratorPage';
-import LoadDoc from './components/LoadDoc'
+import RequestRole from './components/RequestRole'
 import {
     Routes,
     Route,
@@ -103,13 +103,13 @@ class App extends React.Component {
                         element={<Login onAuthorized={this.handleAuthorization} onTitleChanged={this.handleTitleChange} />}
                     />
                     <Route
-                        exact path='/signup'
+                        exact path='/register'
                         element={<Register onAuthorized={this.handleAuthorization} onTitleChanged={this.handleTitleChange} />} />
                     <Route
                         exact path='/startup/:id'
                         element={<Startup onTitleChanged={this.handleTitleChange} />} />
                     <Route
-                        exact path='/addstartup'
+                        exact path='/add_startup'
                         element={<AddStartup onTitleChanged={this.handleTitleChange} />} />
                     <Route
                         exact path='/personal'
@@ -118,8 +118,8 @@ class App extends React.Component {
                         exact path='/moderator'
                         element={<ModeratorPage onTitleChanged={this.handleTitleChange} />} />
                     <Route
-                        exact path='/loaddoc'
-                        element={<LoadDoc onTitleChanged={this.handleTitleChange} />} />
+                        exact path='/request_role'
+                        element={<RequestRole onTitleChanged={this.handleTitleChange} />} />
                 </Routes>
                 {/* <footer className='bot-bar'>
 
