@@ -3,7 +3,7 @@ import PostCard from './PostCard';
 import CommentCard from './CommentCard';
 import { withParams } from '../helpers/hooks';
 import * as config from '../helpers/config';
-
+import { Link } from 'react-router-dom';
 
 class Startup extends React.Component {
 
@@ -19,16 +19,24 @@ class Startup extends React.Component {
         isApply: false,
         isDonate: false,
         applyDesc: '',
-        isApplicant: false
+        isApplicant: false,
+        user_id: null,
     }
 
     async init() {
-        let data = await fetch(config.url + '/api/business/current_user', {
+        fetch(config.url + '/api/business/current_user', {
             headers: {
                 Authorization: 'Bearer ' + window.token
             }
-        }).then((res) => res.json())
-        this.setState({ isApplicant: data.roles.some((role) => role.type === 'APPLICANT') })
+        }).then((res) => res.json()).then((result) => {
+            if (!result.status) {
+                this.setState({
+                    isApplicant: result.roles.some((role) => role.type === 'APPLICANT'),
+                    user_id: result.id,
+                });
+            }
+        });
+
     }
 
     componentDidMount = () => {
@@ -43,7 +51,7 @@ class Startup extends React.Component {
                     this.setState({
                         startup: result
                     });
-                    this.props.onTitleChanged(this.state.startup.name)
+                    this.props.onTitleChanged(this.state.startup.name);
                 }
             });
 
@@ -298,10 +306,24 @@ class Startup extends React.Component {
                         </div>
                         <p>{this.state.startup.description}</p>
                         <div className="mt-2 text-center">
-                            <button className={"p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white " + (this.state.startup.liked ? 'bg-blue text-white' : '')} onClick={this.handleLikeClick}>{this.state.startup.likes} лайков</button>
-                            <button className={"p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white " + (this.state.startup.followed ? 'bg-blue text-white' : '')} onClick={this.handleFollowClick}>{this.state.startup.follows} подписок</button>
-                            {this.state.isApplicant ? <button className="p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white" onClick={this.handleOpenVaccancyClick}>Откликнуться на вакансию</button> : null}
-                            <button className="p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white" onClick={this.handleOpenDonateClick}>Сделать пожертвование</button>
+                            {this.state.startup.status !== 'Created' &&
+                                <button className={"p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white " + (this.state.startup.liked ? 'bg-blue text-white' : '')} onClick={this.handleLikeClick}>{this.state.startup.likes} лайков</button>
+                            }
+                            {this.state.startup.status !== 'Created' &&
+                                <button className={"p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white " + (this.state.startup.followed ? 'bg-blue text-white' : '')} onClick={this.handleFollowClick}>{this.state.startup.follows} подписок</button>
+                            }
+                            {this.state.startup.status !== 'Created' &&
+                                <button className="p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white" onClick={this.handleOpenDonateClick}>Сделать пожертвование</button>
+                            }
+                            {this.state.isApplicant && this.state.startup.status !== 'Created' &&
+                                <button className="p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white" onClick={this.handleOpenVaccancyClick}>Откликнуться на вакансию</button>
+                            }
+                            {this.state.user_id === this.state.startup.userId &&
+                                <Link to={'/startup/' + this.state.startup.id + '/create_post'}><div className="inline-block p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white">Создать пост</div></Link>
+                            }
+                            {this.state.user_id === this.state.startup.userId && this.state.startup.status === 'Created' &&
+                                <Link to='/login'><div className="inline-block p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white">Отправить на модерацию</div></Link>
+                            }
                         </div>
                         {this.cardBottom()}
                     </div>
