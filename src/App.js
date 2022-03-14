@@ -1,18 +1,19 @@
 import React from 'react';
-import Register from './components/Register'
-import Startup from './components/Startup'
-import PersonalArea from './components/PersonalArea'
-import AddStartup from './components/AddStartup'
-import MainPage from './components/MainPage'
-import Login from './components/Login'
+import Register from './components/Register';
+import Startup from './components/Startup';
+import PersonalArea from './components/PersonalArea';
+import AddStartup from './components/AddStartup';
+import AddPost from './components/AddPost';
+import MainPage from './components/MainPage';
+import Login from './components/Login';
 import ModeratorPage from './components/ModeratorPage';
-import RequestRole from './components/RequestRole'
+import RequestRole from './components/RequestRole';
 import {
     Routes,
     Route,
     Link
-} from 'react-router-dom'
-import './helpers/cookie'
+} from 'react-router-dom';
+import './helpers/cookie';
 import * as config from './helpers/config';
 
 class App extends React.Component {
@@ -108,6 +109,9 @@ class App extends React.Component {
                     <Route
                         exact path='/startup/:id'
                         element={<Startup onTitleChanged={this.handleTitleChange} />} />
+                    <Route
+                        exact path='/startup/:id/create_post'
+                        element={<AddPost onTitleChanged={this.handleTitleChange} />} />
                     <Route
                         exact path='/add_startup'
                         element={<AddStartup onTitleChanged={this.handleTitleChange} />} />

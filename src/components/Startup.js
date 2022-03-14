@@ -1,7 +1,7 @@
 import React from 'react';
 import PostCard from './PostCard';
 import CommentCard from './CommentCard';
-import withParams from '../helpers/hooks';
+import { withParams } from '../helpers/hooks';
 import * as config from '../helpers/config';
 
 
@@ -39,10 +39,12 @@ class Startup extends React.Component {
         })
             .then(res => res.json())
             .then((result) => {
-                this.setState({
-                    startup: result
-                });
-                this.props.onTitleChanged(this.state.startup.name)
+                if (!result.status) {
+                    this.setState({
+                        startup: result
+                    });
+                    this.props.onTitleChanged(this.state.startup.name)
+                }
             });
 
         fetch(config.url + '/api/feed/api/startup/' + this.props.params.id + '/posts/', {
@@ -52,9 +54,10 @@ class Startup extends React.Component {
         })
             .then(res => res.json())
             .then((result) => {
-                this.setState({
-                    posts: result
-                });
+                if (!result.status)
+                    this.setState({
+                        posts: result
+                    });
             });
 
         this.updateComments();
@@ -69,9 +72,10 @@ class Startup extends React.Component {
         })
             .then(res => res.json())
             .then((result) => {
-                this.setState({
-                    comments: result
-                });
+                if (!result.status)
+                    this.setState({
+                        comments: result
+                    });
             });
     }
 
@@ -294,8 +298,8 @@ class Startup extends React.Component {
                         </div>
                         <p>{this.state.startup.description}</p>
                         <div className="mt-2 text-center">
-                            <button type='button' className="p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white" onClick={this.handleLikeClick}>{this.state.startup.likes} лайков</button>
-                            <button className="p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white" onClick={this.handleFollowClick}>{this.state.startup.follows} подписок</button>
+                            <button className={"p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white " + (this.state.startup.liked ? 'bg-blue text-white' : '')} onClick={this.handleLikeClick}>{this.state.startup.likes} лайков</button>
+                            <button className={"p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white " + (this.state.startup.followed ? 'bg-blue text-white' : '')} onClick={this.handleFollowClick}>{this.state.startup.follows} подписок</button>
                             {this.state.isApplicant ? <button className="p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white" onClick={this.handleOpenVaccancyClick}>Откликнуться на вакансию</button> : null}
                             <button className="p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white" onClick={this.handleOpenDonateClick}>Сделать пожертвование</button>
                         </div>

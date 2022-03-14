@@ -1,8 +1,10 @@
 import React from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
-function withParams(Component) {
+export function withParams(Component) {
     return props => <Component {...props} params={useParams()} />;
 }
 
-export default withParams;
+export function withNavigation(Component){
+    return props => <Component {...props} navigate={useNavigate()} />;
+};

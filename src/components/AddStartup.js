@@ -12,49 +12,41 @@ class AddStartup extends React.Component {
         files: []
     }
 
-
     constructor(props) {
         super(props)
-        this.handleDateChanged = this.handleDateChanged.bind(this)
-        this.handleNameChanged = this.handleNameChanged.bind(this)
-        this.handleDescChanged = this.handleDescChanged.bind(this)
-        this.handleUploadFiles = this.handleUploadFiles.bind(this)
-        this.handleGoalChanged = this.handleGoalChanged.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.today = ''
-        let date = new Date()
-        let day = date.getDate()
-        let month = date.getMonth() + 1
-        let year = date.getFullYear()
-        let today = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day
-        this.state.date = today
+        let date = new Date();
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        let today = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+        this.state.date = today;
     }
 
     componentDidMount = () => {
         this.props.onTitleChanged('Создать стартап');
     }
 
-    handleDateChanged(ev) {
+    handleDateChanged = (ev) => {
         this.setState({ date: ev.target.value })
     }
 
-    async handleNameChanged(ev) {
-        await this.setState({ name: ev.target.value })
+    handleNameChanged = (ev) => {
+        this.setState({ name: ev.target.value })
     }
 
-    handleDescChanged(ev) {
+    handleDescChanged = (ev) => {
         this.setState({ desc: ev.target.value })
     }
 
-    handleGoalChanged(ev) {
+    handleGoalChanged = (ev) => {
         this.setState({ goal: ev.target.value })
     }
 
-    handleUploadFiles(event) {
+    handleUploadFiles = (event) => {
         this.setState({ files: event.target.files });
     }
 
-    async handleSubmit(event) {
+    handleSubmit = async (event) => {
         let req;
         let fd = new FormData()
         let date = new Date(this.state.date)
@@ -88,36 +80,34 @@ class AddStartup extends React.Component {
 
     render() {
         return (
-            <>
-                <div className='mx-auto w-fit mt-10 p-5 flex flex-col justify-center'>
-                    <h1 className='font-bold text-xl mb-10'>Введите данные о стартапе:</h1>
-                    <div className='name mb-7'>
-                        <label htmlFor='name' className='font-bold mr-2 mb-2 block'>Название:</label>
-                        <input type='text' id='name' className='border border-solid rounded-sm' onChange={this.handleNameChanged} />
-                    </div>
-                    <div className='desc mb-7'>
-                        <label htmlFor='desc' className='font-bold mr-2 mb-2 block'>Описание:</label>
-                        <textarea cols='40' rows='5' id='desc' className='border border-solid rounded-sm w-80 h-20' onChange={this.handleDescChanged} />
-                    </div>
-                    <div className='goal mb-7'>
-                        <label htmlFor='goal' className='font-bold mr-2 mb-2 block'>Цель(рублей):</label>
-                        <input type='text' id='goal' className='border border-solid rounded-sm' onChange={this.handleGoalChanged} />
-                    </div>
-                    <div className='date-end mb-7'>
-                        <label htmlFor='date-end' className='font-bold mr-2 mb-2 block'>Дата окончания сбора средств:</label>
-                        <input type="date" id="date-end"
-                            value={this.state.date}
-                            min={this.state.date} onChange={this.handleDateChanged} />
-                    </div>
-                    <div className='docs'>
-                        <label htmlFor='docs' className='font-bold mr-2'>Загрузить документы:</label>
-                        <input type='file' multiple accept='.pdf, image/png, image/jpeg' id='docs' className='mb-5 mt-3' onChange={this.handleUploadFiles} />
-                    </div>
-                    <div className='text-center mt-20'>
-                        <button className='py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700' onClick={this.handleSubmit}>Сохранить</button>
-                    </div>
+            <div className='mx-auto w-fit mt-10 p-5 flex flex-col justify-center'>
+                <h1 className='font-bold text-xl mb-10'>Введите данные о стартапе:</h1>
+                <div className='name mb-7'>
+                    <label htmlFor='name' className='font-bold mr-2 mb-2 block'>Название:</label>
+                    <input type='text' id='name' className='border border-solid rounded-sm' onChange={this.handleNameChanged} />
                 </div>
-            </>
+                <div className='desc mb-7'>
+                    <label htmlFor='desc' className='font-bold mr-2 mb-2 block'>Описание:</label>
+                    <textarea cols='40' rows='5' id='desc' className='border border-solid rounded-sm w-80 h-20' onChange={this.handleDescChanged} />
+                </div>
+                <div className='goal mb-7'>
+                    <label htmlFor='goal' className='font-bold mr-2 mb-2 block'>Цель(рублей):</label>
+                    <input type='text' id='goal' className='border border-solid rounded-sm' onChange={this.handleGoalChanged} />
+                </div>
+                <div className='date-end mb-7'>
+                    <label htmlFor='date-end' className='font-bold mr-2 mb-2 block'>Дата окончания сбора средств:</label>
+                    <input type="date" id="date-end"
+                        value={this.state.date}
+                        min={this.state.date} onChange={this.handleDateChanged} />
+                </div>
+                <div className='docs'>
+                    <label htmlFor='docs' className='font-bold mr-2'>Загрузка медиа:</label>
+                    <input type='file' multiple accept='.pdf, image/png, image/jpeg' id='docs' className='mb-5 mt-3' onChange={this.handleUploadFiles} />
+                </div>
+                <div className='text-center mt-20'>
+                    <button className='py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700' onClick={this.handleSubmit}>Создать</button>
+                </div>
+            </div>
         )
     }
 }

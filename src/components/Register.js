@@ -1,6 +1,7 @@
 import React from 'react';
-import '../helpers/cookie'
-import * as config from '../helpers/config'
+import '../helpers/cookie';
+import * as config from '../helpers/config';
+import { withNavigation } from '../helpers/hooks';
 
 class Register extends React.Component {
 
@@ -40,6 +41,7 @@ class Register extends React.Component {
         } else {
             this.props.onAuthorized(data.token);
             alert('Успешно зарегистрирован!');
+            this.props.navigate('/');
         }
     }
 
@@ -71,4 +73,4 @@ class Register extends React.Component {
     }
 }
 
-export default Register;
+export default withNavigation(Register);

@@ -59,7 +59,7 @@ class PostCard extends React.Component {
                     <div className="text-light">{this.state.post.userName} {this.state.post.userSurname}</div>
                     <p>{this.state.post.text}</p>
                     <div className="mt-2">
-                        <button type='button' className="p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white" onClick={this.handleLikeClick}>{this.state.post.likes} лайков</button>
+                        <button type='button' className={"p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white " + (this.state.post.liked ? 'bg-blue text-white' : '')} onClick={this.handleLikeClick}>{this.state.post.likes} лайков</button>
                     </div>
                 </div>
             </div>

@@ -75,7 +75,7 @@ class PersonalArea extends React.Component {
                             {this.state.startups.map(startup => { return <li key={startup.id}><Link to={'/startup/' + startup.id}>{startup.name}</Link></li> })}
                         </ul>
                     </div>
-                    <div className='personal-data basis-1/3 mx-auto mt-10'>
+                    {/* <div className='personal-data basis-1/3 mx-auto mt-10'>
                         <div className='personal-docs w-72 mx-auto'>
                             <h2 className='font-bold mb-3'>Загруженные личные документы:</h2>
                             <div className='is-passport-container'>
@@ -94,7 +94,7 @@ class PersonalArea extends React.Component {
                                 <label htmlFor='is-finstatements' className='ml-5'>Финансовая отчетность</label>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className='load-buttons basis-1/3'>
                         {/*<div>
                             <p>Загрузить документ о компании:</p>
@@ -103,7 +103,7 @@ class PersonalArea extends React.Component {
                         <div>
                             {this.state.isCreator ?
                                 <Link to='/add_startup'><button className='py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>Создать стартап</button></Link> :
-                                <button disabled className='py-2 px-4 text-sm font-medium rounded-md text-white bg-card'>Создать компанию</button>}
+                                <button disabled className='py-2 px-4 text-sm font-medium rounded-md text-white bg-card'>Создать стартап</button>}
                         </div>
                         <div>
                             <Link to='/request_role'><button className='mt-10 py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>Запросить роль</button></Link>

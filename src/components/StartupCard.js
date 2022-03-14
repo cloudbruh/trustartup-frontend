@@ -13,7 +13,7 @@ class StartupCard extends React.Component {
             })
                 .then(res => res.json())
                 .then((result) => {
-                    this.props.onStartupChange({...this.props.startup, likes: result.likes, liked: result.liked});
+                    this.props.onStartupChange({ ...this.props.startup, likes: result.likes, liked: result.liked });
                 })
                 .catch((error) => {
                     alert(error);
@@ -27,7 +27,7 @@ class StartupCard extends React.Component {
             })
                 .then(res => res.json())
                 .then((result) => {
-                    this.props.onStartupChange({...this.props.startup, likes: result.likes, liked: result.liked});
+                    this.props.onStartupChange({ ...this.props.startup, likes: result.likes, liked: result.liked });
                 })
                 .catch((error) => {
                     alert(error);
@@ -45,7 +45,7 @@ class StartupCard extends React.Component {
             })
                 .then(res => res.json())
                 .then((result) => {
-                    this.props.onStartupChange({...this.props.startup, follows: result.follows, followed: result.followed});
+                    this.props.onStartupChange({ ...this.props.startup, follows: result.follows, followed: result.followed });
                 })
                 .catch((error) => {
                     alert(error);
@@ -59,7 +59,7 @@ class StartupCard extends React.Component {
             })
                 .then(res => res.json())
                 .then((result) => {
-                    this.props.onStartupChange({...this.props.startup, follows: result.follows, followed: result.followed});
+                    this.props.onStartupChange({ ...this.props.startup, follows: result.follows, followed: result.followed });
                 })
                 .catch((error) => {
                     alert(error);
@@ -92,8 +92,8 @@ class StartupCard extends React.Component {
                     </div>
                     <div>{this.props.startup.descriptionShort}</div>
                     <div className="mt-2">
-                        <button type='button' className="p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white" onClick={this.handleLikeClick}>{this.props.startup.likes} лайков</button>
-                        <button className="p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white" onClick={this.handleFollowClick}>{this.props.startup.follows} подписок</button>
+                        <button className={"p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white " + (this.props.startup.liked ? 'bg-blue text-white' : '')} onClick={this.handleLikeClick}>{this.props.startup.likes} лайков</button>
+                        <button className={"p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white " + (this.props.startup.followed ? 'bg-blue text-white' : '')} onClick={this.handleFollowClick}>{this.props.startup.follows} подписок</button>
                     </div>
                 </div>
             </div>

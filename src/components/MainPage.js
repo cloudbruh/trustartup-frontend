@@ -1,6 +1,5 @@
 import React from 'react';
 import StartupCard from './StartupCard'
-//import Filters from './Filters'
 import * as config from '../helpers/config';
 
 class MainPage extends React.Component {
@@ -44,7 +43,7 @@ class MainPage extends React.Component {
         return (
             <div className='content mt-10 px-4 mx-auto'>
                 <ul>
-                    {this.state.startups.map((startup,index) => {
+                    {this.state.startups.map((startup, index) => {
                         return (
                             <li key={startup.id} ><StartupCard startup={startup} onStartupChange={startup => {
                                 this.setState(prevState => {

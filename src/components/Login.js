@@ -1,5 +1,6 @@
 import React from 'react';
 import * as config from '../helpers/config'
+import { withNavigation } from '../helpers/hooks';
 
 class Login extends React.Component {
 
@@ -36,7 +37,7 @@ class Login extends React.Component {
         } else {
             this.props.onAuthorized(data.token);
             alert('Успешный вход!');
-            //TODO(перекинуть на предыдущую страницу)
+            this.props.navigate('/');
         }
 
     }
@@ -59,4 +60,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+export default withNavigation(Login);
