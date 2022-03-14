@@ -47,7 +47,7 @@ class Startup extends React.Component {
         })
             .then(res => res.json())
             .then((result) => {
-                if (!result.status) {
+                if (!result.error) {
                     this.setState({
                         startup: result
                     });
@@ -281,7 +281,7 @@ class Startup extends React.Component {
             </div>)
         else if (this.state.isDonate) return (
             <div className='donation-form text-center mb-7'>
-                <label htmlFor='donate' className='font-bold mr-2 mb-5 mt-5 block'>Размер пожертвования(рублей):</label>
+                <label htmlFor='donate' className='font-bold mr-2 mb-5 mt-5 block'>Размер пожертвования:</label>
                 <input type='text' onChange={this.handleChangeDonate} id='donate' className='border border-solid rounded-sm' />
                 <button onClick={this.handleSubmitDonate} className='enter-button ml-5 py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700'>Пожертвовать!</button>
             </div>)
@@ -299,30 +299,32 @@ class Startup extends React.Component {
                         <div className="font-medium text-lg">{this.state.startup.name}</div>
                         <div className="text-light">{this.state.startup.userName} {this.state.startup.userSurname}</div>
                         <div className="flex my-1">
-                            <div className="flex-1 h-6 bg-dark rounded-full">
-                                <div className="h-6 px-2 bg-blue rounded-full text-white text-right" style={{ width: this.state.startup.totalFunded * 100 / this.state.startup.fundsGoal + "%" }}>{this.state.startup.totalFunded}</div>
-                            </div>
+                            {this.state.startup.status === 'Published' &&
+                                <div className="flex-1 h-6 bg-dark rounded-full">
+                                    <div className="h-6 px-2 bg-blue rounded-full text-white text-right" style={{ width: this.state.startup.totalFunded * 100 / this.state.startup.fundsGoal + "%" }}>{this.state.startup.totalFunded}</div>
+                                </div>
+                            }
                             <div className="ml-2">из {this.state.startup.fundsGoal}</div>
                         </div>
                         <p>{this.state.startup.description}</p>
                         <div className="mt-2 text-center">
-                            {this.state.startup.status !== 'Created' &&
+                            {this.state.startup.status === 'Published' &&
                                 <button className={"p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white " + (this.state.startup.liked ? 'bg-blue text-white' : '')} onClick={this.handleLikeClick}>{this.state.startup.likes} лайков</button>
                             }
-                            {this.state.startup.status !== 'Created' &&
+                            {this.state.startup.status === 'Published' &&
                                 <button className={"p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white " + (this.state.startup.followed ? 'bg-blue text-white' : '')} onClick={this.handleFollowClick}>{this.state.startup.follows} подписок</button>
                             }
-                            {this.state.startup.status !== 'Created' &&
+                            {this.state.startup.status === 'Published' &&
                                 <button className="p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white" onClick={this.handleOpenDonateClick}>Сделать пожертвование</button>
                             }
-                            {this.state.isApplicant && this.state.startup.status !== 'Created' &&
+                            {this.state.isApplicant && this.state.startup.status === 'Published' &&
                                 <button className="p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white" onClick={this.handleOpenVaccancyClick}>Откликнуться на вакансию</button>
                             }
-                            {this.state.user_id === this.state.startup.userId &&
+                            {this.state.user_id === this.state.startup.userId && this.state.startup.status === 'Published' &&
                                 <Link to={'/startup/' + this.state.startup.id + '/create_post'}><div className="inline-block p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white">Создать пост</div></Link>
                             }
                             {this.state.user_id === this.state.startup.userId && this.state.startup.status === 'Created' &&
-                                <Link to='/login'><div className="inline-block p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white">Отправить на модерацию</div></Link>
+                                <Link to={'/startup/' + this.state.startup.id + '/request_moderation'}><div className="inline-block p-1 px-2 rounded-full bg-gray-200 hover:bg-blue hover:text-white">Отправить на модерацию</div></Link>
                             }
                         </div>
                         {this.cardBottom()}

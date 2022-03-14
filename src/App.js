@@ -8,6 +8,7 @@ import MainPage from './components/MainPage';
 import Login from './components/Login';
 import ModeratorPage from './components/ModeratorPage';
 import RequestRole from './components/RequestRole';
+import RequestModeration from './components/RequestModeration';
 import {
     Routes,
     Route,
@@ -112,6 +113,9 @@ class App extends React.Component {
                     <Route
                         exact path='/startup/:id/create_post'
                         element={<AddPost onTitleChanged={this.handleTitleChange} />} />
+                    <Route
+                        exact path='/startup/:id/request_moderation'
+                        element={<RequestModeration onTitleChanged={this.handleTitleChange} />} />
                     <Route
                         exact path='/add_startup'
                         element={<AddStartup onTitleChanged={this.handleTitleChange} />} />
